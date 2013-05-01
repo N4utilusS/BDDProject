@@ -11,6 +11,13 @@
 		</header>
 		
 		<section>
+			
+			<?php 
+				if(isset($_GET['message']) AND $_GET['message'] == 'BadLogin'){ ?>
+					<p>Bad login information ! Please try again :</p>
+			<?php	
+				} ?>
+			
 			<p>Please enter your Email address and Password:</p>
 			
 			<form method = "post" action = "identityTest.php">

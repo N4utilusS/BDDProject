@@ -17,11 +17,13 @@
 		
 		if ($data = $response -> fetch()){
 			// $_SESSION['password'] = $_POST['password'];
-			$_SESSION['email'] = $_POST['email']; 
+			$_SESSION['email'] = $_POST['email']; // On aurait pu utiliser la donnée email reçues de la requête...
 			header('Location: welcome.php');
+			exit();	// Pour arrêter le calcul du reste de la page php, car on va quand même autre part.
 		}
 		else{
-			header('Location: index.php'); 
+			header('Location: index.php?message=BadLogin');
+			exit();
 		}
 	}			
 ?>		

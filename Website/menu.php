@@ -1,5 +1,9 @@
-<meta charset = "UTF-8"> // Pas nécessaire
-<title> BDD project Antdebru-Auplisni </title> // idem
+
+<?php session_start();?>
+
 <a href = "searchAuthor.php" title = "searchAuthor">Search for an author</a>
 <a href = "searchPublication.php" title = "searchPublication">Search for a publication</a>
 <a href = "specialSearch.php" title = "specialSearch">Use one of our five special search requests</a>
+
+<?php if ($_SESSION['administrator'] ==1 )?>
+<a href = "edit.php" title = "Edit">Use your administrator special abilities</a>

@@ -30,7 +30,7 @@
 					$response = $bdd->prepare('SELECT P.Title, P.Year FROM Publication P, Author A, Author_Publication AP, Author_Name AN WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name LIKE \'?\'');
 					$response -> execute(array(	$_POST['author']));
 		
-					while ($data = $response -> fetch()){
+					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>
     					<p>
    		    			<strong>Publication</strong> : <?php echo $data['Title']; ?><br />

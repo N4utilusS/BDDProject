@@ -23,6 +23,18 @@
 					
 					<br/>
 					
+					<input type = "radio" name = "type" value = "Article" id = "Article"/>
+					<label for = "Article">Article</label><br/>
+					
+					<input type = "radio" name = "type" value = "Book" id = "Book"/>
+					<label for = "Book">Book</label><br/>
+					
+					<input type = "radio" name = "type" value = "PHDThesis" id = "PHDThesis"/>
+					<label for = "PHDThesis">PHD Thesis</label><br/>
+					
+					<input type = "radio" name = "type" value = "MasterThesis" id = "MasterThesis"/>
+					<label for = "MasterThesis">Master Thesis</label><br/>
+					
 					<input type = "submit" value = "Submit"/>
 				</p>
 			</form>			

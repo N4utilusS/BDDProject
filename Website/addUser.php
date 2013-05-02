@@ -1,5 +1,4 @@
 <?php
-	session_start();
 
 	if(isset($_POST['email']) and isset($_POST['password']) and isset($_POST['password1']) and $_POST['password'] == $_POST['password1']){
 		try{

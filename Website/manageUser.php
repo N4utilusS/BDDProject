@@ -1,7 +1,5 @@
 <!DOCTYPE  html>
-
-<?php session_start();?>
-
+<?php if(!isset($_SESSION)) session_start(); ?>
 <html>
 	<head>
 		<?php include("head.php"); ?>
@@ -51,11 +49,12 @@
 
 				
 				try{
-						$dblp = new PDO('mysql:host = localhost; dbname = dblp', 'root', 'root');
-					}	
-				catch(Exception $e){
-					die('Error : ' .$e -> getMessage());
-					echo 'Something went wrong...';
+					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
+				}	
+			catch(Exception $e){
+				die('Error : ' .$e -> getMessage());
+				echo 'Something went wrong...';
+		}
 					
 		
 					$bdd->exec('SELECT U.Email, U.Administrator FROM User U');
@@ -69,7 +68,7 @@
     					</p>
 						<?php
 					}
-				}
+				
 			?>	
 
 		</section>	

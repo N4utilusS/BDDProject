@@ -1,7 +1,6 @@
 
 <!DOCTYPE  html>
-
-<?php session_start();?>
+<?php if(!isset($_SESSION)) session_start(); ?>
 
 <html>
 	<head>
@@ -20,15 +19,16 @@
 
 				if(isset($_POST['author'])){
 					try{
-							$dblp = new PDO('mysql:host = localhost; dbname = dblp', 'root', 'root');
-						}	
-					catch(Exception $e){
-						die('Error : ' .$e -> getMessage());
-						echo 'Something went wrong...';
-					}
-		
-					$response = $bdd->prepare('SELECT P.Title, P.Year FROM Publication P, Author A, Author_Publication AP, Author_Name AN WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name LIKE \'?\'');
-					$response -> execute(array(	$_POST['author']));
+					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
+				}	
+			catch(Exception $e){
+				die('Error : ' .$e -> getMessage());
+				echo 'Something went wrong...';
+		}
+					$response = $bdd->prepare('SELECT P.Title, P.Year 
+						FROM publication P, author A, author_publication AP, author_name AN 
+						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name LIKE ?');
+					$response -> execute(array(	$_POST['author'])); // Trouver un moyen de rajouter % après ce que rentre l'user et un autre truc similaire mais pour obtenir ce qui il y a avant.
 		
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>

@@ -22,7 +22,7 @@
 					<label for = "pass"> Your Password :</label>
 					<input type = "password" name = "password" id = "pass"/>
 					
-					<label for = "pass"> Your Password Again :</label>
+					<label for = "pass2"> Your Password Again :</label>
 					<input type = "password" name = "password1" id = "pass2"/>
 					
 					<input type = "submit" value = "Submit"/>

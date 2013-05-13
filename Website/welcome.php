@@ -1,7 +1,7 @@
+
+<?php session_start(); ?>
+
 <!DOCTYPE  html>
-
-<?php if(!isset($_SESSION)) session_start(); ?>
-
 
 <html>
 	<head>
@@ -15,7 +15,7 @@
 		</header>
 		
 		<section> //Zone centrale
-			<p>Ca c'est notre site !</p>			
+			<p>Ca c'est notre site !</p>	// No shit Sherlock !
 		</section>	
 		
 		<nav> //Menu

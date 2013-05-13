@@ -11,7 +11,8 @@
 		</header>
 		
 		<section> //Zone centrale
-			<p>Là on explique des trucs</p>			
+			<p>Là on explique des trucs</p>
+			<iframe width="960" height="720" src="http://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" frameborder="0" allowfullscreen></iframe>
 		</section>	
 		
 		<nav> //Menu

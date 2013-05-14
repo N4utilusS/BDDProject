@@ -9,9 +9,15 @@
 				echo 'Something went wrong...';
 		}
 		
-		$deleteUser = $bdd->prepare('DELETE FROM User WHERE Email = ?');
-		$deleteUser -> execute(array($_POST['email']));
 		
+		$isAdmin = $bdd->prepare('SELECT Administrator FROM User WHERE Email LIKE ?');
+		$isAdmin -> execute(array($_POST['email']));
+		if ($data = $isAdmin -> fetch()){
+			if ($data['Administrator'] == 0){
+				$deleteUser = $bdd->prepare('DELETE FROM User WHERE Email LIKE ?');
+				$deleteUser -> execute(array($_POST['email']));
+			}
+		}
 		header('Location: manageUser.php');
 	}
 				

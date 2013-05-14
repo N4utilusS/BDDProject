@@ -9,7 +9,7 @@
 				echo 'Something went wrong...';
 		}
 		
-		$setAdmin = $bdd->prepare('UPDATE User SET Administrator = 1 WHERE Email = \'?\'');
+		$setAdmin = $bdd->prepare('UPDATE User SET Administrator = 1 WHERE Email LIKE ?');
 		$setAdmin -> execute(array($_POST['email']));
 		
 		header('Location: manageUser.php');

@@ -1,5 +1,5 @@
-//<?php if(!isset($_SESSION)) session_start(); ?>	// Sais pas si le if est nécessaire. On doit déjà être connecté pour y accéder, et il faut de toute façon appeler session_start();
-<?php session_start();
+
+<?php if(!isset($_SESSION)) session_start();
 	if (!isset($_SESSION['email']) OR !isset($_SESSION['administrator']) OR $_SESSION['administrator'] == 0){	// Réservé aux admins (mouhahahaha...)
 		header('Location: index.php');
 		exit();

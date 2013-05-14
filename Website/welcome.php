@@ -10,19 +10,19 @@
 	
 	<body>
 	
-		<header> //En-tête
+		<header> <!--En-tête-->
 			<h1>Welcome <?php echo $_SESSION['email']; ?></h1>
 		</header>
 		
-		<section> //Zone centrale
-			<p>Ca c'est notre site !</p>	// No shit Sherlock !
+		<section> <!--Zone centrale-->
+			<p>Ca c'est notre site !</p>	
 		</section>	
 		
-		<nav> //Menu
+		<nav> <!--Menu-->
 			<?php include ("menu.php"); ?>
 		</nav>
 		
-		<footer> //Footer !
+		<footer> <!--Footer-->
 			<?php include ("footer.php"); ?>
 		</footer>
 		

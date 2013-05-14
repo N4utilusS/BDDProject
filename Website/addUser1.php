@@ -1,6 +1,6 @@
 <?php
 
-	if(isset($_POST['email']) and isset($_POST['password'])){
+	if(!empty($_POST['email']) and !empty($_POST['password'])){
 		try{
 					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
 				}	
@@ -13,5 +13,10 @@
 		$addUser -> execute(array($_POST['email'], $_POST['password']));
 		
 		header('Location: manageUser.php');
-	}			
+		exit();
+	}
+	else{
+		 header('Location: manageUser.php?message=BadEntry');	
+		 exit();	
+	}	
 ?>	

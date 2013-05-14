@@ -7,11 +7,11 @@
 	
 	<body>
 	
-		<header> //En-tête
+		<header> <!--En-tête-->
 			<h1>Let's search for a publication <?php echo $_SESSION['email']; ?></h1>
 		</header>
 		
-		<section> //Zone centrale
+		<section> <!--Zone centrale-->
 			<p>Enter the name of your publication</p>
 			
 			<form method = "post" action = "computeSearchPublication.php">
@@ -38,11 +38,11 @@
 			</form>			
 		</section>	
 		
-		<nav> //Menu
+		<nav> <!--Menu-->
 			<?php include ("menu.php"); ?>
 		</nav>
 		
-		<footer> //Footer !
+		<footer> <!--footer-->
 			<?php include ("footer.php"); ?>
 		</footer>
 		

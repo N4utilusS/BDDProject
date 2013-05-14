@@ -7,23 +7,23 @@
 	
 	<body>
 	
-		<header> //En-tête
+		<header> <!--En-tête-->
 			<h1>Edit <?php echo $_SESSION['email']; ?></h1>
 		</header>
 		
-		<section> //Zone centrale
+		<section> <!--Zone centrale-->
 			<p>What do you want to do ?</p>
-			// Là faudrait réfléchir...
+			<!--Là faudrait réfléchir...-->
 			
-			<a href = "manageUser.php" title = "manageUser">Manage the users</a>
+			<a href = "manageUser.php" title = "manageUser">Manage the users</a> </br></br>
 		
 		</section>	
 		
-		<nav> //Menu
+		<nav> <!--Menu-->
 			<?php include ("menu.php"); ?>
 		</nav>
 		
-		<footer> //Footer !
+		<footer> <!--Footer !-->
 			<?php include ("footer.php"); ?>
 		</footer>
 		

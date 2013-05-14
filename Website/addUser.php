@@ -1,6 +1,6 @@
 <?php
 
-	if(isset($_POST['email']) and isset($_POST['password']) and isset($_POST['password1']) and $_POST['password'] == $_POST['password1']){
+	if(!empty($_POST['email']) and !empty($_POST['password']) and !empty($_POST['password1']) and $_POST['password'] == $_POST['password1']){
 			try{
 					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
 				}	

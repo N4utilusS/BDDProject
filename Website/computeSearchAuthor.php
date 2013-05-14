@@ -67,7 +67,7 @@
 				}
 				
 
-					$response = $bdd->query('SELECT P.Title, P.Year
+					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
 						FROM publication P, author A, author_publication AP, author_name AN 
 						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name 
 						LIKE "' . $_GET['author'] . '"  
@@ -79,8 +79,8 @@
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>
     					<p>
-   		    			<strong>Publication</strong> : <?php echo $data['Title']; ?><br />
-    					Year : <?php echo $data['Year']; ?>
+    					<a href= <?php echo '"detailsPublication.php?publication='.($data['Publication_id']).'"';?>>
+   		    			<strong><?php echo $data['Title']; ?></strong></a> <?php echo $data['Year'];?> <br /> 				
     					</p>
 						<?php
 					}
@@ -90,11 +90,11 @@
 			
 					
 					if ($_GET['resultMin'] > 0){ ?>
-						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;author=' . $_GET['author'] . '"';?> >50 users précédents</a>
+						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;author=' . $_GET['author'] . '"';?> >50 publications précédentes</a>
 					<?php }
 					
 					if ($_GET['resultMin'] < $entryNumber-51){ ?>
-						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;author=' . $_GET['author'] . '"';?> >50 users suivants</a>
+						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;author=' . $_GET['author'] . '"';?> >50 publications suivantes</a>
 					<?php }
 
 				

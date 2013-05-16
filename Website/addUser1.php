@@ -2,7 +2,7 @@
 
 	if(!empty($_POST['email']) and !empty($_POST['password']) and filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 		try{
-					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
+					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root');
 				}	
 			catch(Exception $e){
 				die('Error : ' .$e -> getMessage());

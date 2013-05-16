@@ -61,7 +61,7 @@
 
 				
 				try{
-					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
+					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root');
 				}	
 				catch(Exception $e){
 					die('Error : ' .$e -> getMessage());

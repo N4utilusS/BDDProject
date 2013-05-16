@@ -19,7 +19,7 @@
 
 				if(isset($_POST['publication'])  or isset($_GET['publication']) ){
 						try{
-					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 				}	
 			catch(Exception $e){
 				die('Error : ' .$e -> getMessage());

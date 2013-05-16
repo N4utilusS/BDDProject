@@ -4,7 +4,7 @@
 
 	if(isset($_POST['email']) and isset($_POST['password'])){
 		try{
-					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'Te_v0et');
+					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root');
 				}	
 			catch(Exception $e){
 				die('Error : ' .$e -> getMessage());
@@ -22,9 +22,9 @@
 			header('Location: welcome.php');
 			exit();	// Pour arrêter le calcul du reste de la page php, car on va quand même autre part.
 		}
-		else{
-			header('Location: index.php?message=BadLogin');
-			exit();
-		}
+	
+		header('Location: index.php?message=BadLogin');
+		exit();
+		
 	}			
 ?>		

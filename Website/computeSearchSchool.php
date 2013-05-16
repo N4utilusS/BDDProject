@@ -70,7 +70,8 @@
 					$response = $bdd->query('SELECT *
 						FROM school S
 						WHERE S.Name 
-						LIKE "' . $_GET['school'] . '"  
+						LIKE "' . $_GET['school'] . '"
+						ORDER BY Name  
 						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					

@@ -70,7 +70,8 @@
 					$response = $bdd->query('SELECT *
 						FROM publisher P
 						WHERE P.Name 
-						LIKE "' . $_GET['publisher'] . '"  
+						LIKE "' . $_GET['publisher'] . '"
+						ORDER BY Name  
 						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					

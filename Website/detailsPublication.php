@@ -12,7 +12,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Details of the publication,  <?php echo $_SESSION['email']; ?></h1>
+			<h1>Details of the publication,  <?php echo $_SESSION['email']; ?>  </h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -72,6 +72,7 @@
 					<strong>VOLUME : </strong><?php echo $data['Volume'];?> <br />
 					<strong>NUMBER : </strong><?php echo $data['Number'];?> <br />
 					<strong>PAGES : </strong><?php echo $data['Pages'];?> <br />
+					<?php $_SESSION['type'] = "Article";?>
 				<?php }
 				
 				//JOURNAL DANS LEQUEL L'ARTICLE EST PARU L'ARTICLE
@@ -124,11 +125,31 @@
 					<strong>PUBLISHER : </strong><?php echo $data['Name'];?> <br />
 				<?php }
 				
+				//COMMENTAIRES SUR LA PUBLICATION
+				$response = $bdd->query('SELECT UP.Comment, UP.Time_stp, U.Email FROM user_publication UP, user U WHERE U.User_id=UP.User_id AND UP.Publication_id=' . $_GET['publication'].' ORDER BY UP.Time_stp');
+				while($data = $response -> fetch()){?>
+					<br />
+					<?php echo $data['Time_stp']; ?> --->
+					<strong><?php echo $data['Email']; ?></strong> said : <br />
+					<?php echo $data['Comment'];?> <br />
+				<?php }
 				
 				
-
 
 			?>	
+			
+			
+			<form name = "comment" method = "post" action = <?php echo '"addComment.php?publication=' . $_GET['publication'] . '"'; ?>>
+				<p>
+					
+					<label for = "comment"> Add (or change) comment (you have to be logged in) :</label><br/>
+					<TEXTAREA name="comment" rows=7 cols=40>Your comment</TEXTAREA>
+					
+					<input type = "submit" value = "Submit"/>
+				</p>
+			</form>	
+			
+			
 
 		</section>	
 		

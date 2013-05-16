@@ -71,6 +71,7 @@
 						FROM publication P, publisher_publication PP 
 						WHERE P.Publication_id=PP.Publication_id AND PP.Publisher_id
 						= "' . $_GET['publisher'] . '"  
+						ORDER BY P.Title
 						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					

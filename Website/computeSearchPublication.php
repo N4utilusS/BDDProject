@@ -58,7 +58,7 @@
 
 				
 		
-					$response = $bdd->query('SELECT DISTINCT P.Title, P.Year, P.Publication_id FROM publication P, book B WHERE P.Title LIKE "' . $_GET['publication'] . '" LIMIT ' . $_GET['resultMin'] . ', 50');
+					$response = $bdd->query('SELECT DISTINCT P.Title, P.Year, P.Publication_id FROM publication P, book B WHERE P.Title LIKE "' . $_GET['publication'] . '" ORDER BY P.Title LIMIT ' . $_GET['resultMin'] . ', 50');
 		
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>

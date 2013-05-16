@@ -23,7 +23,7 @@
 			// Connection avec la base de données.
 			//------------------------------------------------
 
-				if(isset($_POST['school']) OR $_GET['school']){
+				if(isset($_POST['journal']) OR $_GET['journal']){
 					try{
 					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 					}	
@@ -33,7 +33,7 @@
 					}
 				}
 				else {
-					header('Location : searchSchool.php');
+					header('Location : searchJournal.php');
 					exit();
 				}
 				
@@ -41,15 +41,15 @@
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
 				
-				if(isset($_POST['school'])) $_GET['school'] = $_POST['school'];
+				if(isset($_POST['journal'])) $_GET['journal'] = $_POST['journal'];
 				
-				$response = $bdd->query('SELECT COUNT(distinct ST.Publication_id) 
-				FROM school_thesis ST 
-				WHERE ST.School_id 
-				= "' . $_GET['school'] . '"');
+				$response = $bdd->query('SELECT COUNT(distinct JA.Publication_id) 
+				FROM journal_article JA 
+				WHERE JA.Journal_name 
+				= "' . $_GET['journal'] . '"');
 					
 				$entry = $response -> fetch();
-				$entryNumber = (int) $entry['COUNT(distinct ST.Publication_id)'];
+				$entryNumber = (int) $entry['COUNT(distinct JA.Publication_id)'];
 			
 				$response->closeCursor(); // Termine le traitement de la requête
 			
@@ -68,10 +68,10 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, school_thesis ST 
-						WHERE P.Publication_id=ST.Publication_id AND ST.School_id
-						= "' . $_GET['school'] . '" 
-						ORDER BY P.Title 
+						FROM publication P, journal_article JA
+						WHERE P.Publication_id=JA.Publication_id AND JA.Journal_name
+						= "' . $_GET['journal'] . '"  
+						ORDER BY P.Title
 						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					
@@ -91,11 +91,11 @@
 			
 					
 					if ($_GET['resultMin'] > 0){ ?>
-						<a href= <?php echo '"detailsSchool.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;school=' . $_GET['school'] . '"';?> >50 publications précédentes</a>
+						<a href= <?php echo '"detailsJournal.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;journal=' . $_GET['journal'] . '"';?> >50 publications précédentes</a>
 					<?php }
 					
 					if ($_GET['resultMin'] < $entryNumber-51){ ?>
-						<a href= <?php echo '"detailsSchool.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;school=' . $_GET['school'] . '"';?> >50 publications suivantes</a>
+						<a href= <?php echo '"detailsJournal.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;journal=' . $_GET['journal'] . '"';?> >50 publications suivantes</a>
 					<?php }
 
 				

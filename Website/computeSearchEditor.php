@@ -43,13 +43,13 @@
 				
 				if(isset($_POST['editor'])) $_GET['editor'] = $_POST['editor'];
 				
-				$response = $bdd->query('SELECT COUNT(distinct P.Publisher_id) 
-				FROM publisher P 
-				WHERE P.Name 
-				LIKE "' . $_GET['publisher'] . '"');
+				$response = $bdd->query('SELECT COUNT(distinct E.Editor_id) 
+				FROM editor E 
+				WHERE E.Name 
+				LIKE "' . $_GET['editor'] . '"');
 					
 				$entry = $response -> fetch();
-				$entryNumber = (int) $entry['COUNT(distinct P.Publisher_id)'];
+				$entryNumber = (int) $entry['COUNT(distinct E.Editor_id)'];
 			
 				$response->closeCursor(); // Termine le traitement de la requête
 			
@@ -67,10 +67,11 @@
 				}
 				
 
-					$response = $bdd->query('SELECT *
-						FROM publisher P
-						WHERE P.Name 
-						LIKE "' . $_GET['publisher'] . '"  
+					$response = $bdd->query('SELECT Name, Editor_id
+						FROM editor
+						WHERE Name 
+						LIKE "' . $_GET['editor'] . '"
+						ORDER BY Name  
 						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					
@@ -79,7 +80,7 @@
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>
     					<p>
-    					<a href= <?php echo '"detailsPublisher.php?publisher='.($data['Publisher_id']).'"';?>>
+    					<a href= <?php echo '"detailsEditor.php?editor='.($data['Editor_id']).'"';?>>
    		    			<strong><?php echo $data['Name']; ?></strong></a> <br /> 				
     					</p>
 						<?php
@@ -90,11 +91,11 @@
 			
 					
 					if ($_GET['resultMin'] > 0){ ?>
-						<a href= <?php echo '"computeSearchPublisher.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;publisher=' . $_GET['publisher'] . '"';?> >50 publishers précédents</a>
+						<a href= <?php echo '"computeSearchEditor.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;editor=' . $_GET['editor'] . '"';?> >50 éditeurs précédents</a>
 					<?php }
 					
 					if ($_GET['resultMin'] < $entryNumber-51){ ?>
-						<a href= <?php echo '"computeSearchPublisher.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;publisher=' . $_GET['publisher'] . '"';?> >50 publishers suivants</a>
+						<a href= <?php echo '"computeSearchEditor.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;editor=' . $_GET['editor'] . '"';?> >50 éditeurs suivants</a>
 					<?php }
 
 				

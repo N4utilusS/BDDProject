@@ -70,7 +70,8 @@
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
 						FROM publication P, author A, author_publication AP, author_name AN 
 						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name 
-						LIKE "' . htmlspecialchars($_GET['author']) . '"  
+						LIKE "' . htmlspecialchars($_GET['author']) . '"
+						ORDER BY P.Title  
 						LIMIT ' . htmlspecialchars($_GET['resultMin']) . ', 50');
 				
 					

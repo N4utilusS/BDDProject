@@ -23,6 +23,7 @@
 			//echo 'huuur <br />';
 			$_SESSION['email'] = $_POST['email']; // On aurait pu utiliser la donnée email reçues de la requête...
 			$_SESSION['administrator'] = $data['Administrator'];
+			$_SESSION['User_id'] = $data['User_id'];
 			
 			//echo $_SESSION['email'] . ' ' . $_SESSION['administrator'] . '<br />';
 			//echo '<pre>';
@@ -32,6 +33,7 @@
 		}
 		
 	}
+	
 	$response->closeCursor();
 	//echo 'close <br />';
 	redirection("index.php");

@@ -16,7 +16,7 @@
 			
 			<form method = "post" action = "computeSearchJournal.php">
 				<p>
-					<label for = "journal"> Your author :</label>
+					<label for = "journal"> Your journal :</label>
 					<input type = "text" name = "journal" id = "journal"/>
 					
 					<br/>

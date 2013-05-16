@@ -23,8 +23,10 @@
 			// Connection avec la base de données.
 			//------------------------------------------------
 
-				if(isset($_POST['school']) OR $_GET['school']){
+				if(isset($_POST['editor']) OR $_GET['editor']){
 					try{
+					$link = mysql_connect("localhost", "root", "root");
+					mysql_select_db("dblp", $link);
 					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 					}	
 					catch(Exception $e){
@@ -33,7 +35,7 @@
 					}
 				}
 				else {
-					header('Location : searchSchool.php');
+					header('Location : searchEditor.php');
 					exit();
 				}
 				
@@ -41,17 +43,21 @@
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
 				
-				if(isset($_POST['school'])) $_GET['school'] = $_POST['school'];
+				if(isset($_POST['editor'])) $_GET['editor'] = $_POST['editor'];
 				
-				$response = $bdd->query('SELECT COUNT(distinct ST.Publication_id) 
-				FROM school_thesis ST 
-				WHERE ST.School_id 
-				= "' . $_GET['school'] . '"');
+				$response = mysql_query ('SELECT EA.Publication_id
+				FROM editor_article EA
+				WHERE EA.Editor_id 
+				= "' . $_GET['editor'] . '"
+				UNION
+				SELECT EB.Publication_id
+				FROM editor_book EB
+				WHERE EB.Editor_id 
+				= "' . $_GET['editor'] . '"', $link);
+				
 					
-				$entry = $response -> fetch();
-				$entryNumber = (int) $entry['COUNT(distinct ST.Publication_id)'];
+				$entryNumber = mysql_num_rows($response);
 			
-				$response->closeCursor(); // Termine le traitement de la requête
 			
 
 				//------------------------------------------------
@@ -68,10 +74,14 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, school_thesis ST 
-						WHERE P.Publication_id=ST.Publication_id AND ST.School_id
-						= "' . $_GET['school'] . '" 
-						ORDER BY P.Title 
+						FROM publication P, editor_article EA 
+						WHERE P.Publication_id=EA.Publication_id AND EA.Editor_id
+						= "' . $_GET['editor'] . '" 
+						UNION
+						SELECT P.Title, P.Year, P.Publication_id
+						FROM publication P, editor_book EB 
+						WHERE P.Publication_id=EB.Publication_id AND EB.Editor_id
+						= "' . $_GET['editor'] . '"					 
 						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					
@@ -91,11 +101,11 @@
 			
 					
 					if ($_GET['resultMin'] > 0){ ?>
-						<a href= <?php echo '"detailsSchool.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;school=' . $_GET['school'] . '"';?> >50 publications précédentes</a>
+						<a href= <?php echo '"detailsEditor.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;editor=' . $_GET['editor'] . '"';?> >50 publications précédentes</a>
 					<?php }
 					
 					if ($_GET['resultMin'] < $entryNumber-51){ ?>
-						<a href= <?php echo '"detailsSchool.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;school=' . $_GET['school'] . '"';?> >50 publications suivantes</a>
+						<a href= <?php echo '"detailsEditor.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;editor=' . $_GET['editor'] . '"';?> >50 publications suivantes</a>
 					<?php }
 
 				

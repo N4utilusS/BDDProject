@@ -11,7 +11,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Welcome <?php if ($_SESSION['email']) echo $_SESSION['email']; ?> !</h1>
+			<h1>Welcome <?php if (!empty($_SESSION['email'])) echo $_SESSION['email']; ?> !</h1>
 		</header>
 		
 		<section> <!--Zone centrale-->

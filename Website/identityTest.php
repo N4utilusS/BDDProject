@@ -1,30 +1,39 @@
 
 
-<?php session_start();
+<?php if(!isset($_SESSION)) session_start();
 
-	if(isset($_POST['email']) and isset($_POST['password'])){
+	function redirection($url)
+	{
+	   die('<meta http-equiv="refresh" content="0;URL='.$url.'">');
+	}
+
+	if(isset($_POST['email']) AND isset($_POST['password'])){
 		try{
-					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root');
-				}	
-			catch(Exception $e){
-				die('Error : ' .$e -> getMessage());
-				echo 'Something went wrong...';
+			$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root');
+		}	
+		catch(Exception $e){
+			die('Error : ' .$e -> getMessage());
+			//echo 'Something went wrong...';
 		}
 		
-		$response = $bdd->prepare('SELECT User_id, Administrator FROM User WHERE Email = ? AND Password = ?');
-		$response -> execute(array(	$_POST['email'], $_POST['password']));
-		
-		
+		$response = $bdd->query('SELECT User_id, Administrator FROM User WHERE Email = "' . $_POST['email'] . '" AND Password = "' . $_POST['password'] . '"');
+
+		//echo 'derp0 <br />';
 		if ($data = $response -> fetch()){
-			// $_SESSION['password'] = $_POST['password'];
+			//echo 'huuur <br />';
 			$_SESSION['email'] = $_POST['email']; // On aurait pu utiliser la donnée email reçues de la requête...
 			$_SESSION['administrator'] = $data['Administrator'];
-			header('Location: welcome.php');
-			exit();	// Pour arrêter le calcul du reste de la page php, car on va quand même autre part.
+			
+			//echo $_SESSION['email'] . ' ' . $_SESSION['administrator'] . '<br />';
+			//echo '<pre>';
+			//print_r($data);
+			//echo '</pre>';
+			
 		}
-	
-		header('Location: index.php?message=BadLogin');
-		exit();
 		
-	}			
+	}
+	$response->closeCursor();
+	//echo 'close <br />';
+	redirection("welcome.php");
+	exit();
 ?>		

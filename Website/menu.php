@@ -1,11 +1,27 @@
 <?php if(!isset($_SESSION)) session_start(); ?>
 
-<a href = "searchAuthor.php" title = "searchAuthor">Search for an author</a><br />
-<a href = "searchPublication.php" title = "searchPublication">Search for a publication</a><br />
-<a href = "searchPublishor.php" title = "searchPublishor">Search for a publisher</a><br />
-<a href = "searchSchool.php" title = "searchSchool">Search for a school</a><br />
-<a href = "searchEditor.php" title = "searchEditor">Search for an editor</a><br />
-<a href = "searchJournal.php" title = "searchJournal">Search for a journal</a><br />
+Search for :
+<ul>
+<li><a href = "searchAuthor.php" title = "searchAuthor">Author</a></li>
+<li><a href = "searchPublication.php" title = "searchPublication">Publication</a></li>
+<li><a href = "searchPublishor.php" title = "searchPublishor">Publisher</a></li>
+<li><a href = "searchSchool.php" title = "searchSchool">School</a></li>
+<li><a href = "searchEditor.php" title = "searchEditor">Editor</a></li>
+<li><a href = "searchJournal.php" title = "searchJournal">Journal</a></li>
+</ul>
 
-<?php if ($_SESSION['administrator'] ==1 ){?>
-<a href = "edit.php" title = "Edit">Use your administrator special abilities</a> <?php } ?>
+<?php if (!isset($_SESSION['administrator'])) { ?>
+	
+	<a href = "logOn.php" title = "Login">Log In</a>
+
+<?php } if (isset($_SESSION['administrator'])) { ?>
+	
+	<a href = "logOff.php" title = "Clic here to disconnect !">Log Off</a>
+
+
+<?php }
+	if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){?>
+	
+	<a href = "edit.php" title = "Edit">Admin Space</a>
+
+<?php } ?>

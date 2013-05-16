@@ -1,6 +1,8 @@
 <?php if(!isset($_SESSION)) session_start(); ?>
 
 
+
+
 <!DOCTYPE  html>
 
 
@@ -72,6 +74,7 @@
 					<strong>VOLUME : </strong><?php echo $data['Volume'];?> <br />
 					<strong>NUMBER : </strong><?php echo $data['Number'];?> <br />
 					<strong>PAGES : </strong><?php echo $data['Pages'];?> <br />
+					<strong>VOLUME : </strong><?php echo $data['Volume'];?> <br />
 					<?php $_SESSION['type'] = "Article";?>
 				<?php }
 				
@@ -126,12 +129,16 @@
 				<?php }
 				
 				//COMMENTAIRES SUR LA PUBLICATION
-				$response = $bdd->query('SELECT UP.Comment, UP.Time_stp, U.Email FROM user_publication UP, user U WHERE U.User_id=UP.User_id AND UP.Publication_id=' . $_GET['publication'].' ORDER BY UP.Time_stp');
+				$response = $bdd->query('SELECT UP.Comment, UP.Time_stp, U.Email, UP.User_id FROM user_publication UP, user U WHERE U.User_id=UP.User_id AND UP.Publication_id=' . $_GET['publication'].' ORDER BY UP.Time_stp');
 				while($data = $response -> fetch()){?>
 					<br />
 					<?php echo $data['Time_stp']; ?> --->
 					<strong><?php echo $data['Email']; ?></strong> said : <br />
-					<?php echo $data['Comment'];?> <br />
+					<?php echo $data['Comment'];?> 
+					<?php 
+					if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){?>	
+						<a href = <?php echo '"deleteComment.php?user=' . $data['User_id']. '&amp;publication='. $_GET['publication'].'"';?> title = "deleteComment">Delete this comment</a>	<?php } ?>					
+					<br />
 				<?php }
 				
 				

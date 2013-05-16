@@ -16,6 +16,7 @@
 			<!--Là faudrait réfléchir...-->
 			
 			<a href = "manageUser.php" title = "manageUser">Manage the users</a> </br></br>
+			<a href = "addPublication.php" title = "addPublication">Add a publication</a> </br></br>
 		
 		</section>	
 		

@@ -10,7 +10,7 @@
 		}
 		
 		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?,0)');
-		$addUser -> execute(array($_POST['email'], $_POST['password']));
+		$addUser -> execute(array(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])));
 		
 		header('Location: manageUser.php');
 		exit();

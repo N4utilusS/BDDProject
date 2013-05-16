@@ -11,7 +11,7 @@
 			
 		
 		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?, 0)');
-		$addUser -> execute(array(	$_POST['email'], $_POST['password']));
+		$addUser -> execute(array(	htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])));
 		$addUser -> closeCursor();	// Ne sais pas si nécessaire ici vu qu'on ne retourne rien, mais on met dans la base.
 		
 		header('Location: index.php');

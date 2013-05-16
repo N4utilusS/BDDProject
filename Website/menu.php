@@ -12,6 +12,7 @@ Search for :
 
 <?php if (!isset($_SESSION['administrator'])) { ?>
 	
+	<a href = "register.php" title = "Register yourself !">Register</a>
 	<a href = "logOn.php" title = "Login">Log In</a>
 
 <?php } if (isset($_SESSION['administrator'])) { ?>

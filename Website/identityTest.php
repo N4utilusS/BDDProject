@@ -34,6 +34,6 @@
 	}
 	$response->closeCursor();
 	//echo 'close <br />';
-	redirection("welcome.php");
+	redirection("index.php");
 	exit();
 ?>		

@@ -7,6 +7,6 @@
 		
 	}
 
-	header('Location: welcome.php');
+	header('Location: index.php');
 	exit();
 ?>

@@ -46,7 +46,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) 
 				FROM publication P, author A, author_publication AP, author_name AN 
 				WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name 
-				LIKE "' . $_GET['author'] . '"');
+				LIKE "' . htmlspecialchars($_GET['author']) . '"');
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct P.Publication_id)'];
@@ -70,8 +70,8 @@
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
 						FROM publication P, author A, author_publication AP, author_name AN 
 						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name 
-						LIKE "' . $_GET['author'] . '"  
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIKE "' . htmlspecialchars($_GET['author']) . '"  
+						LIMIT ' . htmlspecialchars($_GET['resultMin']) . ', 50');
 				
 					
 		

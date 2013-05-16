@@ -110,6 +110,7 @@
 					// Leur affichage.
 					//------------------------------------------------
 					
+					echo '<strong>User list : </strong><br />';
 
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail -> no pb ^^ but why ?
 						?>									

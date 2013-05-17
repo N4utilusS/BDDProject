@@ -51,7 +51,12 @@
 				<?php echo $data['Name'];?> <br />
 				
 				<?php
-				} 
+				}
+				
+				
+				 if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
+						<a href = <?php echo '"addAuthor.php?publication='. $_GET['publication'].'"';?> title = "addAuthor">Add an author for this publication</a><?php	
+				
 				
 				//DONNEES GENERALES DE LA PUBLICATION 
 				$response = $bdd->query('SELECT * FROM publication P WHERE P.Publication_id=' . $_GET['publication']);

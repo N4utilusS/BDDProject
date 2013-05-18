@@ -43,6 +43,16 @@
 				
 				if(isset($_POST['journal'])) $_GET['journal'] = $_POST['journal'];
 				
+				$names = $bdd->query('SELECT Name FROM journal WHERE Name="'.$_GET['journal'].'"');
+				if ($name = $names -> fetch()) { ?> Name of the journal : 
+					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
+					<a href = <?php echo '"changeJournalName.php?journal='.$_GET['journal'].'"';?> title = "changeJournalName"> Change</a> <?php  } ?></a><br /> <br />
+				<?php }
+
+
+				?> These are the articles paruted in the journal : <br /> <?php
+				
+				
 				$response = $bdd->query('SELECT COUNT(distinct JA.Publication_id) 
 				FROM journal_article JA 
 				WHERE JA.Journal_name 

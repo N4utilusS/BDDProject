@@ -5,7 +5,7 @@ function redirection($url)
 	die('<meta http-equiv="refresh" content="0;URL='.$url.'">');
 }
 
-if(isset($_GET['publication']) AND isset($_GET['author'])){
+if(isset($_GET['publication']) AND isset($_GET['journal'])){
 		try{
 			$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 		}	
@@ -15,7 +15,7 @@ if(isset($_GET['publication']) AND isset($_GET['author'])){
 		}
 		
 
-		$response = $bdd->query('INSERT INTO author_publication (Author_id, Publication_id, Time_stp) VALUES ('.$_GET['author'].', '.$_GET['publication'].', NOW())');
+		$response = $bdd->query('INSERT INTO journal_article (Journal_name, Publication_id, Time_stp) VALUES ("'.$_GET['journal'].'", '.$_GET['publication'].', NOW())');
 		
 		
 		

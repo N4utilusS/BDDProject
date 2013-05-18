@@ -15,13 +15,14 @@
 			<h1>Result of your search,  <?php echo $_SESSION['email']; ?></h1>
 		</header>
 		
-		<section> <!--Zone centrale-->
+		<section> <!--Zone centrale--> Les noms d'auteurs suivis de leur ID interne à la base de donnée, si deux noms sont associés à la même ID, ils désignent la même personne.
 		
 			<?php
 			
 			//------------------------------------------------
 			// Connection avec la base de données.
 			//------------------------------------------------
+			
 
 				if(isset($_POST['author']) OR $_GET['author']){
 					try{
@@ -43,13 +44,13 @@
 				
 				if(isset($_POST['author'])) $_GET['author'] = $_POST['author'];
 				
-				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) 
-				FROM publication P, author A, author_publication AP, author_name AN 
-				WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name 
-				LIKE "' . htmlspecialchars($_GET['author']) . '"');
+				$response = $bdd->query('SELECT COUNT(distinct AN.Name) 
+				FROM author_name AN 
+				WHERE AN.Name 
+				LIKE "' . $_GET['author'] . '"');
 					
 				$entry = $response -> fetch();
-				$entryNumber = (int) $entry['COUNT(distinct P.Publication_id)'];
+				$entryNumber = (int) $entry['COUNT(distinct AN.Name)'];
 			
 				$response->closeCursor(); // Termine le traitement de la requête
 			
@@ -67,12 +68,12 @@
 				}
 				
 
-					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, author A, author_publication AP, author_name AN 
-						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND AN.Name 
-						LIKE "' . htmlspecialchars($_GET['author']) . '"
-						ORDER BY P.Title  
-						LIMIT ' . htmlspecialchars($_GET['resultMin']) . ', 50');
+					$response = $bdd->query('SELECT Name, Author_id
+						FROM author_name
+						WHERE Name 
+						LIKE "' . $_GET['author'] . '"
+						ORDER BY Name  
+						LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 					
 		
@@ -80,8 +81,8 @@
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>
     					<p>
-    					<a href= <?php echo '"detailsPublication.php?publication='.($data['Publication_id']).'"';?>>
-   		    			<strong><?php echo $data['Title']; ?></strong></a> <?php echo $data['Year'];?> <br /> 				
+    					<a href= <?php echo '"detailsSearchAuthor.php?author='.($data['Author_id']).'"';?>>
+   		    			<strong><?php echo $data['Name']; ?></strong></a> <?php echo $data['Author_id']; ?><br /> 				
     					</p>
 						<?php
 					}
@@ -91,11 +92,11 @@
 			
 					
 					if ($_GET['resultMin'] > 0){ ?>
-						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;author=' . $_GET['author'] . '"';?> >50 publications précédentes</a>
+						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']-50) . '&amp;author=' . $_GET['author'] . '"';?> >50 auteurs précédents</a>
 					<?php }
 					
 					if ($_GET['resultMin'] < $entryNumber-51){ ?>
-						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;author=' . $_GET['author'] . '"';?> >50 publications suivantes</a>
+						<a href= <?php echo '"computeSearchAuthor.php?resultMin=' . ($_GET['resultMin']+50) . '&amp;author=' . $_GET['author'] . '"';?> >50 auteurs suivants</a>
 					<?php }
 
 				

@@ -43,6 +43,14 @@
 				
 				if(isset($_POST['publisher'])) $_GET['publisher'] = $_POST['publisher'];
 				
+				
+				$names = $bdd->query('SELECT Name FROM publisher WHERE Publisher_id='.$_GET['publisher']);
+				if ($name = $names -> fetch()) { ?> Name of the publisher : 
+					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
+					<a href = <?php echo '"changePublisherName.php?publisher='.$_GET['publisher'].'"';?> title = "changePublisherName"> Change</a> <?php  } ?></a><br /> <br />
+				<?php }
+					
+				
 				$response = $bdd->query('SELECT COUNT(distinct PP.Publication_id) 
 				FROM publisher_publication PP 
 				WHERE PP.Publisher_id 
@@ -73,6 +81,8 @@
 						= "' . $_GET['publisher'] . '"  
 						ORDER BY P.Title
 						LIMIT ' . $_GET['resultMin'] . ', 50');
+						
+						?> The list of the publications published by this publisher : <br /> <?php
 				
 					
 		

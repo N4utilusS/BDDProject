@@ -14,8 +14,9 @@ if(isset($_GET['publication']) AND isset($_GET['author'])){
 			//echo 'Something went wrong...';
 		}
 		
-
-		$response = $bdd->query('INSERT INTO author_publication (Author_id, Publication_id, Time_stp) VALUES ('.$_GET['author'].', '.$_GET['publication'].', NOW())');
+		//echo 'DELETE FROM author_publication WHERE Author_id='.$_GET['author'].' AND Publication_id='.$_GET['publication'];
+		
+		$response = $bdd->query('DELETE FROM author_publication WHERE Author_id='.$_GET['author'].' AND Publication_id='.$_GET['publication']);
 		
 		
 		

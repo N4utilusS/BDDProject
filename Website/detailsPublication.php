@@ -43,12 +43,13 @@
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
 				
-				$response = $bdd->query('SELECT DISTINCT AN.Name FROM author_name AN, author_publication AP WHERE AP.Publication_id=' . $_GET['publication'].' AND AN.Author_id=AP.Author_id');
+				$response = $bdd->query('SELECT DISTINCT AN.Name, AN.Author_id FROM author_name AN, author_publication AP WHERE AP.Publication_id=' . $_GET['publication'].' AND AN.Author_id=AP.Author_id');
 				?>
 				<strong>Author Name(s) : </strong>
 				<?php while($data = $response -> fetch()){?>
 				
-				<?php echo $data['Name'];?> <br />
+				<?php echo $data['Name']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
+						<a href = <?php echo '"deleteAuthorPublication.php?publication='. $_GET['publication']. '&amp;author='.$data['Author_id'].'"';?> title = "deleteAuthorPublication">Remove this author from the publication</a><br />
 				
 				<?php
 				}
@@ -63,6 +64,7 @@
 				if($data = $response -> fetch()){?> 
 					<br /> <br />
 					<strong><?php echo $data['Title']; ?></strong></a> <?php echo $data['Year'];?> <br />
+					<strong>DBLP Key : </strong><?php echo $data['DBLP_Key'];?> <br />
 					<strong>URL : </strong><?php echo $data['URL'];?> <br />
 					<strong>EE : </strong><?php echo $data['EE'];?> <br />
 					<strong>CROSSREF : </strong><?php echo $data['Crossref'];?> <br />
@@ -74,7 +76,8 @@
 				
 				//DONNEES DE L'ARTICLE
 				$response = $bdd->query('SELECT * FROM article AR WHERE AR.Publication_id=' . $_GET['publication']);
-				if($data = $response -> fetch()){?>
+				if($data = $response -> fetch()){
+					$article=true; ?>
 					<strong>Article</strong> <br />
 					<strong>VOLUME : </strong><?php echo $data['Volume'];?> <br />
 					<strong>NUMBER : </strong><?php echo $data['Number'];?> <br />
@@ -87,7 +90,12 @@
 				$response = $bdd->query('SELECT * FROM journal_article JA WHERE JA.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?>
 					<strong>JOURNAL : </strong><?php echo $data['Journal_name'];?> <br />
+					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
+						<a href = <?php echo '"deleteJournalArticle.php?publication='. $_GET['publication'].'&amp;journal='.$data['Journal_name']. '"';?> title = "deleteJournalArticle">Remove this journal from the article</a><br />
 				<?php }
+				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
+						<a href = <?php echo '"addJournal.php?publication='. $_GET['publication']. '"';?> title = "addJournal">Add a journal for this article</a><br /><?php }
+					
 				
 				//EDITEUR DE L'ARTICLE
 				$response = $bdd->query('SELECT * FROM editor_article EA, editor E WHERE E.editor_id=EA.editor_id AND EA.Publication_id=' . $_GET['publication']);
@@ -131,7 +139,14 @@
 				$response = $bdd->query('SELECT * FROM publisher_publication PP, publisher P WHERE P.publisher_id=PP.publisher_id AND PP.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?>
 					<strong>PUBLISHER : </strong><?php echo $data['Name'];?> <br />
-				<?php }
+					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
+						<a href = <?php echo '"deletePublisherPublication.php?publication='. $_GET['publication'].'&amp;publisher='.$data['Publisher_id']. '"';?> title = "deletePublisherPublication">Remove this publisher from the publication</a><?php
+					
+				 }
+				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
+						<a href = <?php echo '"addPublisher.php?publication='. $_GET['publication']. '"';?> title = "addPublisher">Add a publisher for this publication</a><?php }
+					
+				 
 				
 				//COMMENTAIRES SUR LA PUBLICATION
 				$response = $bdd->query('SELECT UP.Comment, UP.Time_stp, U.Email, UP.User_id FROM user_publication UP, user U WHERE U.User_id=UP.User_id AND UP.Publication_id=' . $_GET['publication'].' ORDER BY UP.Time_stp');

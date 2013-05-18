@@ -17,7 +17,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Adding the author...  <?php echo $_SESSION['email']; ?></h1>
+			<h1>Adding the publisher...  <?php echo $_SESSION['email']; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -40,12 +40,12 @@
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name, Author_id FROM author_name WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, Publisher_id FROM publisher WHERE Name LIKE "'. $_POST['Name']. '%"');
 				
 				while ($data = $response -> fetch()){
 						?>
     					<p>
-    					<a href= <?php echo '"addAuthorPublication.php?author='.($data['Author_id']). '&amp;publication='. $_GET['publication'].'"';?>> Did you mean :
+    					<a href= <?php echo '"addPublisherPublication.php?publisher='.($data['Publisher_id']). '&amp;publication='. $_GET['publication'].'"';?>> Did you mean :
    		    			<strong><?php echo $data['Name']; ?></strong></a>  ?<br /> 				
     					</p>
 						<?php
@@ -56,14 +56,11 @@
 		
 				if ($exists==false){
 					
-					$response = $bdd->query('INSERT INTO author (DBLP_www_Key, URL, CROSSREF, Note, Time_stp) VALUES ("' .  htmlspecialchars($_POST['DBLP_Key']) . '", "' . htmlspecialchars($_POST['URL']) . '", "' . 
-					htmlspecialchars($_POST['Crossref']) . '", "'. htmlspecialchars($_POST['Note']).'", NOW())');
-					$response = $bdd->query('SELECT Author_id FROM author WHERE Note = "'. $_POST['Note']. '" AND DBLP_www_Key="'.  htmlspecialchars($_POST['DBLP_Key']) . '" AND URL ="'.htmlspecialchars($_POST['URL']) . '" AND Crossref ="'.htmlspecialchars($_POST['Crossref']) . '"');
+					$response = $bdd->query('INSERT INTO publisher (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
+					$response = $bdd->query('SELECT Publisher_id FROM publisher WHERE Name = "'. $_POST['Name']. '"');
 					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO author_name (Author_id, Name, Time_stp) VALUES ('.$data['Author_id'].', "'.htmlspecialchars($_POST['Name']).'", NOW())');	 
-				    $response = $bdd->query('INSERT INTO author_publication (Author_id, Publication_id, Time_stp) VALUES ('.$data['Author_id'].', '.$_GET['publication'].', NOW())');
-				
-					redirection('detailsPublication.php?publication=' . $_GET['publication']);
+					$response = $bdd->query('INSERT INTO publisher_publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$data['Publisher_id'].', '.($_GET['publication']).', NOW())');	 
+				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();
 				}

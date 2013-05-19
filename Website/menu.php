@@ -8,6 +8,7 @@ Search for :
 <li><a href = "searchSchool.php" title = "searchSchool">School</a></li>
 <li><a href = "searchEditor.php" title = "searchEditor">Editor</a></li>
 <li><a href = "searchJournal.php" title = "searchJournal">Journal</a></li>
+<li><a href = "specialSearch.php" title = "specialSearch">Something special...</a></li>
 </ul>
 
 <?php if (!isset($_SESSION['administrator'])) { ?>

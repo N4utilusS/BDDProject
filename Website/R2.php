@@ -35,11 +35,18 @@
 				
 				$response = $bdd->query('SELECT COUNT(*)
 										FROM (
-											SELECT a.Author_id
-											FROM Publication p, Author_Publication a
-											WHERE p.Publication_id = a.Publication_id AND p.Year >= 2008 AND p.Year <= 2010
-											GROUP BY a.Author_id
-											HAVING COUNT(distinct p.Year) = 3) req');
+											SELECT DISTINCT AN.Name
+											FROM Author A, Author_Name AN, Article AR1, Publication P1, Author_Publication AP1, Publication P2, Author_Publication AP2, Article AR2
+											WHERE A.Author_id = AN.Author_id
+											AND A.Author_id = AP1.Author_id
+											AND A.Author_id = AP2.Author_id
+											AND AR1.Publication_id = P1.Publication_id
+											AND P1.Publication_id = AP1.Publication_id
+											AND AR2.Publication_id = P2.Publication_id
+											AND P2.Publication_id = AP2.Publication_id
+											AND P1.Year = P2.Year
+											AND P1.Publication_id != P2.Publication_id
+											) req');
 				$entry = $response->fetch();
 				
 				$entryNumber = (int) $entry['COUNT(*)'];
@@ -62,11 +69,17 @@
 			// Requête.
 			//------------------------------------------------
 				
-				$response = $bdd->query('SELECT a.Author_id
-										FROM Publication p, Author_Publication a
-										WHERE p.Publication_id = a.Publication_id AND p.Year >= 2008 AND p.Year <= 2010
-										GROUP BY a.Author_id
-										HAVING COUNT(distinct p.Year) = 3
+				$response = $bdd->query('SELECT DISTINCT AN.Name
+										FROM Author A, Author_Name AN, Article AR1, Publication P1, Author_Publication AP1, Publication P2, Author_Publication AP2, Article AR2
+										WHERE A.Author_id = AN.Author_id
+											AND A.Author_id = AP1.Author_id
+											AND A.Author_id = AP2.Author_id
+											AND AR1.Publication_id = P1.Publication_id
+											AND P1.Publication_id = AP1.Publication_id
+											AND AR2.Publication_id = P2.Publication_id
+											AND P2.Publication_id = AP2.Publication_id
+											AND P1.Year = P2.Year
+											AND P1.Publication_id != P2.Publication_id
 										LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 			//------------------------------------------------

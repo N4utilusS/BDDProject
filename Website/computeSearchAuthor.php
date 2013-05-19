@@ -78,7 +78,7 @@
 					
 		
 		
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
+					while ($data = $response -> fetch()){
 						?>
     					<p>
     					<a href= <?php echo '"detailsSearchAuthor.php?author='.($data['Author_id']).'"';?>>

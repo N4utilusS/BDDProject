@@ -16,7 +16,7 @@ if (isset($_GET['author']) AND isset($_POST['Note'])){
 		
 		
 		
-		$changeDBLP = $bdd->query('UPDATE author SET URL = "'.htmlspecialchars($_POST['Note']).'" WHERE Author_id='.$_GET['author']);
+		$changeDBLP = $bdd->query('UPDATE author SET Note = "'.htmlspecialchars($_POST['Note']).'" WHERE Author_id='.$_GET['author']);
 		
 		
 		

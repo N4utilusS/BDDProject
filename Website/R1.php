@@ -32,6 +32,8 @@
 			//------------------------------------------------
 			// Recherche du nbre de publications en rapport avec cet author.
 			//------------------------------------------------
+			
+			if (!isset($_SESSION['R1Number'])){
 				
 				$response = $bdd->query('SELECT COUNT(*)
 										FROM (
@@ -42,9 +44,11 @@
 											HAVING COUNT(distinct p.Year) = 3) req');
 				$entry = $response->fetch();
 				
-				$entryNumber = (int) $entry['COUNT(*)'];
+				$_SESSION['R1Number'] = $entryNumber = (int) $entry['COUNT(*)'];
 				
 				$response->closeCursor();
+			}
+			else $entryNumber = $_SESSION['R1Number'];
 				
 			//------------------------------------------------
 			// Vérification ou création de resultMin pour pouvoir bien gérer les liens page précédente et suivante.
@@ -68,6 +72,7 @@
 										GROUP BY a.Author_id
 										HAVING COUNT(distinct p.Year) = 3
 										LIMIT ' . $_GET['resultMin'] . ', 50');
+				
 				
 			//------------------------------------------------
 			// Affichage.

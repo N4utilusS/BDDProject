@@ -14,7 +14,7 @@
 		</header>
 		
 		<section> <!--Zone centrale-->
-			Les ID des auteurs qui ont chacun publiée au moins une fois chaque année entre 2008 et 2010 inclus.
+			Les ID des auteurs qui ont écrit au moins deux articles pendant la même année.
 			<?php
 			
 			//------------------------------------------------
@@ -32,26 +32,28 @@
 			//------------------------------------------------
 			// Recherche du nbre de publications en rapport avec cet author.
 			//------------------------------------------------
-				
-				$response = $bdd->query('SELECT COUNT(*)
-										FROM (
-											SELECT DISTINCT AN.Name
-											FROM Author A, Author_Name AN, Article AR1, Publication P1, Author_Publication AP1, Publication P2, Author_Publication AP2, Article AR2
-											WHERE A.Author_id = AN.Author_id
-											AND A.Author_id = AP1.Author_id
-											AND A.Author_id = AP2.Author_id
-											AND AR1.Publication_id = P1.Publication_id
-											AND P1.Publication_id = AP1.Publication_id
-											AND AR2.Publication_id = P2.Publication_id
-											AND P2.Publication_id = AP2.Publication_id
-											AND P1.Year = P2.Year
-											AND P1.Publication_id != P2.Publication_id
-											) req');
-				$entry = $response->fetch();
-				
-				$entryNumber = (int) $entry['COUNT(*)'];
-				
-				$response->closeCursor();
+			
+				if (!isset($_SESSION['R2Number'])){
+					
+					$response = $bdd->query('SELECT COUNT(*)
+											FROM (
+												SELECT DISTINCT AP1.Author_id
+												FROM Author_Publication AP1, Author_Publication AP2, Article AR1, Publication P1, Publication P2, Article AR2
+												WHERE AP1.Author_id = AP2.Author_id
+												AND AR1.Publication_id = P1.Publication_id
+												AND P1.Publication_id = AP1.Publication_id
+												AND AR2.Publication_id = P2.Publication_id
+												AND P2.Publication_id = AP2.Publication_id
+												AND P1.Year = P2.Year
+												AND P1.Publication_id != P2.Publication_id
+												) req');
+					$entry = $response->fetch();
+					
+					$_SESSION['R2Number'] = $entryNumber = (int) $entry['COUNT(*)'];
+					
+					$response->closeCursor();
+				}
+				else $entryNumber = (int) $_SESSION['R2Number'];
 				
 			//------------------------------------------------
 			// Vérification ou création de resultMin pour pouvoir bien gérer les liens page précédente et suivante.
@@ -69,17 +71,15 @@
 			// Requête.
 			//------------------------------------------------
 				
-				$response = $bdd->query('SELECT DISTINCT AN.Name
-										FROM Author A, Author_Name AN, Article AR1, Publication P1, Author_Publication AP1, Publication P2, Author_Publication AP2, Article AR2
-										WHERE A.Author_id = AN.Author_id
-											AND A.Author_id = AP1.Author_id
-											AND A.Author_id = AP2.Author_id
-											AND AR1.Publication_id = P1.Publication_id
-											AND P1.Publication_id = AP1.Publication_id
-											AND AR2.Publication_id = P2.Publication_id
-											AND P2.Publication_id = AP2.Publication_id
-											AND P1.Year = P2.Year
-											AND P1.Publication_id != P2.Publication_id
+				$response = $bdd->query('SELECT DISTINCT AP1.Author_id
+										FROM Author_Publication AP1, Author_Publication AP2, Article AR1, Publication P1, Publication P2, Article AR2
+										WHERE AP1.Author_id = AP2.Author_id
+										AND AR1.Publication_id = P1.Publication_id
+										AND P1.Publication_id = AP1.Publication_id
+										AND AR2.Publication_id = P2.Publication_id
+										AND P2.Publication_id = AP2.Publication_id
+										AND P1.Year = P2.Year
+										AND P1.Publication_id != P2.Publication_id
 										LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 			//------------------------------------------------
@@ -97,11 +97,11 @@
 				$response->closeCursor();
 				
 				if ($_GET['resultMin'] > 0){ ?>
-					<a href= <?php echo '"R1.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
+					<a href= <?php echo '"R2.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
 				<?php }
 				
 				if ($_GET['resultMin'] < $entryNumber-51){ ?>
-					<a href= <?php echo '"R1.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
+					<a href= <?php echo '"R2.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
 			<?php }
 			?>
 		

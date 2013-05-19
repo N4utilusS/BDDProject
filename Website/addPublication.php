@@ -58,7 +58,7 @@
 					
 					<input type="radio" name="type" value="article" id="article" /> <label for="article"> Article</label><br/>
 					<input type="radio" name="type" value="book" id="book" /> <label for="book"> Book</label><br/>
-					<input type="radio" name="type" value="mastherThesis" id="mastherThesis" /> <label for="mastherThesis"> Master Thesis</label><br/>
+					<input type="radio" name="type" value="masterThesis" id="mastherThesis" /> <label for="mastherThesis"> Master Thesis</label><br/>
 					<input type="radio" name="type" value="phdThesis" id="phdThesis" /> <label for="phdThesis"> Phd Thesis</label><br/><br/>
 					
 					<input type = "submit" value = "Submit"/>	

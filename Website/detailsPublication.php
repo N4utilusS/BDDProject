@@ -43,8 +43,8 @@ $book=false;
 					exit();
 				}
 				
-				if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<strong><a href = <?php echo '"deletePublication.php?publication='.$_GET['publication'].'"';?> title = "deletePublication"> Delete this publication</a></strong><br /> <br /><?php
+				if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<strong><a href = <?php echo '"deletePublication.php?publication='.$_GET['publication'].'"';?> title = "deletePublication"> Delete this publication</a></strong><br /> <br /><?php }
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -55,34 +55,34 @@ $book=false;
 				<strong>Author Name(s) : </strong>
 				<?php while($data = $response -> fetch()){?>
 				
-				<?php echo $data['Name']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"deleteAuthorPublication.php?publication='. $_GET['publication']. '&amp;author='.$data['Author_id'].'"';?> title = "deleteAuthorPublication">Remove this author from the publication</a><br />
+				<?php echo $data['Name']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) { ?>	
+						<a href = <?php echo '"deleteAuthorPublication.php?publication='. $_GET['publication']. '&amp;author='.$data['Author_id'].'"';?> title = "deleteAuthorPublication">Remove this author from the publication</a><br /><?php } ?>
 				
 				<?php
 				}
 				
 				
-				 if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"addAuthor.php?publication='. $_GET['publication'].'"';?> title = "addAuthor">Add an author for this publication</a><?php	
+				 if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"addAuthor.php?publication='. $_GET['publication'].'"';?> title = "addAuthor">Add an author for this publication</a><?php	}
 				
 				
 				//DONNEES GENERALES DE LA PUBLICATION 
 				$response = $bdd->query('SELECT * FROM publication P WHERE P.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?> 
 					<br /> <br />
-					<strong><?php echo $data['Title']; ?></strong></a> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeTitle.php?publication='.$_GET['publication'].'"';?> title = "changeTitle"> Change</a> <?php echo $data['Year']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeYear.php?publication='.$_GET['publication'].'"';?> title = "changeYear"> Change</a><br /> <br />
-					<strong>DBLP Key : </strong><?php echo $data['DBLP_Key'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeDBLPKey.php?publication='.$_GET['publication'].'"';?> title = "changeDBLPKey"> Change</a> <br />
-					<strong>URL : </strong><?php echo $data['URL'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeURLP.php?publication='.$_GET['publication'].'"';?> title = "changeURLP"> Change</a> <br />
-					<strong>EE : </strong><?php echo $data['EE'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeEE.php?publication='.$_GET['publication'].'"';?> title = "changeEE"> Change</a><br />
-					<strong>CROSSREF : </strong><?php echo $data['Crossref'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeCrossrefP.php?publication='.$_GET['publication'].'"';?> title = "changeCrossrefP"> Change</a> <br />
-					<strong>NOTE : </strong><?php echo $data['Note'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeNoteP.php?publication='.$_GET['publication'].'"';?> title = "changeNoteP"> Change</a> <br />
+					<strong><?php echo $data['Title']; ?></strong></a> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeTitle.php?publication='.$_GET['publication'].'"';?> title = "changeTitle"> Change</a> <?php } echo $data['Year']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeYear.php?publication='.$_GET['publication'].'"';?> title = "changeYear"> Change</a><?php } ?><br /> <br />
+					<strong>DBLP Key : </strong><?php echo $data['DBLP_Key'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeDBLPKey.php?publication='.$_GET['publication'].'"';?> title = "changeDBLPKey"> Change</a> <?php } ?><br />
+					<strong>URL : </strong><?php echo $data['URL'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeURLP.php?publication='.$_GET['publication'].'"';?> title = "changeURLP"> Change</a><?php } ?> <br />
+					<strong>EE : </strong><?php echo $data['EE'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeEE.php?publication='.$_GET['publication'].'"';?> title = "changeEE"> Change</a><?php } ?><br />
+					<strong>CROSSREF : </strong><?php echo $data['Crossref'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeCrossrefP.php?publication='.$_GET['publication'].'"';?> title = "changeCrossrefP"> Change</a> <?php } ?><br />
+					<strong>NOTE : </strong><?php echo $data['Note'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeNoteP.php?publication='.$_GET['publication'].'"';?> title = "changeNoteP"> Change</a><?php } ?> <br />
 				<?php }
 
 				
@@ -93,12 +93,12 @@ $book=false;
 				if($data = $response -> fetch()){
 					$article=true; ?>
 					<strong>Article</strong> <br />
-					<strong>VOLUME : </strong><?php echo $data['Volume'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeVolume.php?publication='.$_GET['publication'].'"';?> title = "changeVolume"> Change</a><br />
-					<strong>NUMBER : </strong><?php echo $data['Number'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeNumber.php?publication='.$_GET['publication'].'"';?> title = "changeNumber"> Change</a><br />
-					<strong>PAGES : </strong><?php echo $data['Pages'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changePages.php?publication='.$_GET['publication'].'"';?> title = "changePages"> Change</a><br />
+					<strong>VOLUME : </strong><?php echo $data['Volume'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeVolume.php?publication='.$_GET['publication'].'"';?> title = "changeVolume"> Change</a><?php } ?><br />
+					<strong>NUMBER : </strong><?php echo $data['Number'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeNumber.php?publication='.$_GET['publication'].'"';?> title = "changeNumber"> Change</a><?php } ?><br />
+					<strong>PAGES : </strong><?php echo $data['Pages'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changePages.php?publication='.$_GET['publication'].'"';?> title = "changePages"> Change</a><?php } ?><br />
 					<?php $_SESSION['type'] = "Article";?>
 				<?php }
 				
@@ -106,8 +106,8 @@ $book=false;
 				$response = $bdd->query('SELECT * FROM journal_article JA WHERE JA.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?>
 					<strong>JOURNAL : </strong><?php echo $data['Journal_name'];?> <br />
-					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"deleteJournalArticle.php?publication='. $_GET['publication'].'&amp;journal='.$data['Journal_name']. '"';?> title = "deleteJournalArticle">Remove this journal from the article</a><br />
+					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"deleteJournalArticle.php?publication='. $_GET['publication'].'&amp;journal='.$data['Journal_name']. '"';?> title = "deleteJournalArticle">Remove this journal from the article</a><?php } ?><br />
 				<?php }
 				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 AND $article==true ){?>	
 						<a href = <?php echo '"addJournal.php?publication='. $_GET['publication']. '"';?> title = "addJournal">Add a journal for this article</a><br /><?php }}
@@ -117,8 +117,8 @@ $book=false;
 				$response = $bdd->query('SELECT * FROM editor_article EA, editor E WHERE E.editor_id=EA.editor_id AND EA.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?>
 					<strong>EDITOR : </strong><?php echo $data['Name'];?> <br />
-					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"deleteEditorArticle.php?publication='. $_GET['publication'].'&amp;editor='.$data['Editor_id']. '"';?> title = "deleteEditorArticle">Remove this editor from the article</a><br />
+					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"deleteEditorArticle.php?publication='. $_GET['publication'].'&amp;editor='.$data['Editor_id']. '"';?> title = "deleteEditorArticle">Remove this editor from the article</a><?php } ?><br />
 				<?php }
 				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 AND $article==true ){?>	
 						<a href = <?php echo '"addEditor.php?publication='. $_GET['publication']. '"';?> title = "addEditor">Set an editor for this article</a><br /><?php }}
@@ -130,8 +130,8 @@ $book=false;
 				if($data = $response -> fetch()){
 					$thesis=true;?>
 					<strong>PHD Thesis</strong> <br />
-					<strong>ISBN : </strong><?php echo $data['ISBN'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeISBNT.php?publication='.$_GET['publication'].'"';?> title = "changeISBNT"> Change</a> <br />
+					<strong>ISBN : </strong><?php echo $data['ISBN'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeISBNT.php?publication='.$_GET['publication'].'"';?> title = "changeISBNT"> Change</a> <?php } ?><br />
 				<?php }
 				
 				//DONNEES DE LA THESE DE MASTER
@@ -145,8 +145,8 @@ $book=false;
 				$response = $bdd->query('SELECT S.Name, S.School_id FROM thesis T, school_thesis ST, school S WHERE T.Publication_id=ST.Publication_id AND ST.School_id=S.School_id AND T.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?>
 					<strong>School name : </strong><?php echo $data['Name'];?> <br />
-					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"deleteSchoolThesis.php?publication='. $_GET['publication'].'&amp;school='.$data['School_id']. '"';?> title = "deleteSchoolThesis">Remove this school from the thesis</a><br /><?php
+					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"deleteSchoolThesis.php?publication='. $_GET['publication'].'&amp;school='.$data['School_id']. '"';?> title = "deleteSchoolThesis">Remove this school from the thesis</a><?php } ?><br /><?php
 					
 				 }
 				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 AND $thesis==true) { ?>	
@@ -159,15 +159,15 @@ $book=false;
 				if($data = $response -> fetch()){
 					$book = true; ?>
 					<strong>BOOK</strong> <br />
-					<strong>ISBN : </strong><?php echo $data['ISBN'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"changeISBNB.php?publication='.$_GET['publication'].'"';?> title = "changeISBNB"> Change</a> <br />
+					<strong>ISBN : </strong><?php echo $data['ISBN'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeISBNB.php?publication='.$_GET['publication'].'"';?> title = "changeISBNB"> Change</a> <?php } ?><br />
 				<?php }
 				
 				//EDITEUR DU BOOK
 				$response = $bdd->query('SELECT * FROM editor_book EB, editor E WHERE E.editor_id=EB.editor_id AND EB.Publication_id=' . $_GET['publication']);
 				if($data = $response -> fetch()){?>
-					<strong>EDITOR : </strong><?php echo $data['Name'];?> <br /><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"deleteEditorBook.php?publication='. $_GET['publication'].'&amp;editor='.$data['Editor_id']. '"';?> title = "deleteEditorBook">Remove this editor from the book</a><br />
+					<strong>EDITOR : </strong><?php echo $data['Name'];?> <br /><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"deleteEditorBook.php?publication='. $_GET['publication'].'&amp;editor='.$data['Editor_id']. '"';?> title = "deleteEditorBook">Remove this editor from the book</a><?php } ?><br />
 				<?php }
 				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 AND $book==true ){?>	
 						<a href = <?php echo '"addEditor.php?publication='. $_GET['publication']. '"';?> title = "addEditor">Set an editor for this book</a><br /><?php }}
@@ -180,8 +180,8 @@ $book=false;
 						<a href = <?php echo '"deletePublisherPublication.php?publication='. $_GET['publication'].'&amp;publisher='.$data['Publisher_id']. '"';?> title = "deletePublisherPublication">Remove this publisher from the publication</a><?php }
 					
 				 }
-				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 )?>	
-						<a href = <?php echo '"addPublisher.php?publication='. $_GET['publication']. '"';?> title = "addPublisher">Set a publisher for this publication</a><?php }
+				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"addPublisher.php?publication='. $_GET['publication']. '"';?> title = "addPublisher">Set a publisher for this publication</a><?php }}
 					
 				 
 				

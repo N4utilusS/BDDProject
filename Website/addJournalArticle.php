@@ -15,11 +15,11 @@ if(isset($_GET['publication']) AND isset($_GET['journal'])){
 		}
 		
 
-		$response = $bdd->query('INSERT INTO journal_article (Journal_name, Publication_id, Time_stp) VALUES ("'.$_GET['journal'].'", '.$_GET['publication'].', NOW())');
+		$response = $bdd->query('INSERT INTO journal_article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_GET['journal']).'", '.htmlspecialchars($_GET['publication']).', NOW())');
 		
 		
 		
-		redirection('detailsPublication.php?publication=' . $_GET['publication']);
+		redirection('detailsPublication.php?publication=' . htmlspecialchars($_GET['publication']));
 
 		exit();
 }

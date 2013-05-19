@@ -8,15 +8,15 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Change / delete a Publisher :</h1>
+			<h1>Change / delete a School :</h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
 		
 		
-			<form method = "post" action = <?php echo '"computeChangePublisherName.php?publisher=' . $_GET['publisher'].'"'; ?>>
+			<form method = "post" action = <?php echo '"computeChangeSchoolrName.php?school=' . $_GET['school'].'"'; ?>>
 				<p>
-					<label for = "newName"> The new name (empty name will delete the publisher) :</label>
+					<label for = "newName"> The new name (empty name will delete the school) :</label>
 					<input type = "text" name = "newName" id = "newName"/>
 					
 					

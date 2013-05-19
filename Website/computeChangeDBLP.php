@@ -5,7 +5,7 @@ function redirection($url)
 	die('<meta http-equiv="refresh" content="0;URL='.$url.'">');
 }
 
-if(isset($_GET['publication']) AND isset($_GET['publisher'])){
+if (isset($_GET['publication']) AND isset($_POST['DBLP'])){
 		try{
 			$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 		}	
@@ -14,8 +14,10 @@ if(isset($_GET['publication']) AND isset($_GET['publisher'])){
 			//echo 'Something went wrong...';
 		}
 		
-
-		$response = $bdd->query('INSERT INTO publisher_publication (Publisher_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['publisher']).', '.htmlspecialchars($_GET['publication']).', NOW())');
+		
+		
+		$changeDBLP = $bdd->query('UPDATE publication SET DBLP_Key = "'.htmlspecialchars($_POST['DBLP']).'" WHERE Publication_id='.htmlspecialchars($_GET['publication']));
+		
 		
 		
 		

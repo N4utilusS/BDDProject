@@ -45,6 +45,16 @@
 				
 				if(isset($_POST['editor'])) $_GET['editor'] = $_POST['editor'];
 				
+				
+				$names = $bdd->query('SELECT Name FROM editor WHERE Editor_id='.$_GET['editor']);
+				if ($name = $names -> fetch()) { ?> Name of the editor : 
+					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
+					<a href = <?php echo '"changeEditorName.php?editor='.$_GET['editor'].'"';?> title = "changeEditorName"> Change</a> <?php  } ?></a><br /> <br />
+				<?php } ?>
+				
+				Here are the books / articles published by this editor: <br /> <?php
+				
+				
 				$response = mysql_query ('SELECT EA.Publication_id
 				FROM editor_article EA
 				WHERE EA.Editor_id 

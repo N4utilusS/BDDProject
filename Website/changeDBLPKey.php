@@ -8,16 +8,16 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Change / delete a Publisher :</h1>
+			<h1>Change DBLP :</h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
 		
 		
-			<form method = "post" action = <?php echo '"computeChangePublisherName.php?publisher=' . $_GET['publisher'].'"'; ?>>
+			<form method = "post" action = <?php echo '"computeChangeDBLP.php?publication=' . $_GET['publication'] .'"'; ?>>
 				<p>
-					<label for = "newName"> The new name (empty name will delete the publisher) :</label>
-					<input type = "text" name = "newName" id = "newName"/>
+					<label for = "DBLP"> The new DBLP :</label>
+					<input type = "text" name = "DBLP" id = "DBLP"/>
 					
 					
 					<input type = "submit" value = "Submit"/>

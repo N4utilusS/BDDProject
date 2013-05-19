@@ -52,11 +52,19 @@
 					<label for = "Note"> Note (optional) :</label>
 					<input type = "text" name = "Note" id = "Note"/>
 					
-					<br/>
+					<br/><br/>
+					
+					What kind of publication is it ?<br/>
+					
+					<input type="radio" name="type" value="article" id="article" /> <label for="article"> Article</label><br/>
+					<input type="radio" name="type" value="book" id="book" /> <label for="book"> Book</label><br/>
+					<input type="radio" name="type" value="mastherThesis" id="mastherThesis" /> <label for="mastherThesis"> Master Thesis</label><br/>
+					<input type="radio" name="type" value="phdThesis" id="phdThesis" /> <label for="phdThesis"> Phd Thesis</label><br/><br/>
 					
 					<input type = "submit" value = "Submit"/>	
 					
-					<br/><br/>
+					
+				</p>
 					
 					
 		</section>	

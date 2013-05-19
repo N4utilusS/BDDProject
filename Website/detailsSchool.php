@@ -43,6 +43,13 @@
 				
 				if(isset($_POST['school'])) $_GET['school'] = $_POST['school'];
 				
+				$names = $bdd->query('SELECT Name FROM school WHERE School_id='.$_GET['school']);
+				if ($name = $names -> fetch()) { ?> Name of the school : 
+					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
+					<a href = <?php echo '"changeSchoolName.php?school='.$_GET['school'].'"';?> title = "changeSchoolName"> Change</a> <?php  } ?></a><br /> <br />
+				<?php } ?> List of the thesis from this school: <br /> <?php
+				
+				
 				$response = $bdd->query('SELECT COUNT(distinct ST.Publication_id) 
 				FROM school_thesis ST 
 				WHERE ST.School_id 

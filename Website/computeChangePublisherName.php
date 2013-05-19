@@ -22,8 +22,8 @@ if(isset($_GET['publisher']) AND isset($_POST['newName'])){
 			 exit();
 		}
 		else {
-			$changeName = $bdd->query('UPDATE publisher SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Publisher_id='.$_GET['publisher']);
-			redirection('detailsPublisher.php?publisher=' . $_GET['publisher']);
+			$changeName = $bdd->query('UPDATE publisher SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
+			redirection('detailsPublisher.php?publisher=' . htmlspecialchars($_GET['publisher']));
 			exit();
 		}
 		

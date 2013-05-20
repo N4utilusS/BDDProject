@@ -18,7 +18,7 @@
 			
 			<a href = "R1.php" title = "R1">R1</a>
 			<a href = "R2.php" title = "R2">R2</a>
-			<a href = "R3.php" title = "R3">R3</a>
+			<a href = "R3Prepare.php" title = "R3">R3</a>
 			<a href = "R4.php" title = "R4">R4</a>
 			<a href = "R5.php" title = "R5">R5</a>
 			<a href = "R6.php" title = "R6">R6</a>

@@ -9,7 +9,7 @@
 
 	if(isset($_POST['email']) AND isset($_POST['password'])){
 		try{
-			$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root');
+			$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 		}	
 		catch(Exception $e){
 			die('Error : ' .$e -> getMessage());

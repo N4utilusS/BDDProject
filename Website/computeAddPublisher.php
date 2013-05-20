@@ -36,11 +36,12 @@
 					header('Location : addAuthor.php');
 					exit();
 				}
+				$bdd->exec("SET CHARACTER SET utf8");
 				
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name, Publisher_id FROM publisher WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, Publisher_id FROM Publisher WHERE Name LIKE "'. $_POST['Name']. '%"');
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -56,10 +57,10 @@
 		
 				if ($exists==false){
 					
-					$response = $bdd->query('INSERT INTO publisher (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
-					$response = $bdd->query('SELECT Publisher_id FROM publisher WHERE Name = "'. $_POST['Name']. '"');
+					$response = $bdd->query('INSERT INTO Publisher (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
+					$response = $bdd->query('SELECT Publisher_id FROM Publisher WHERE Name = "'. $_POST['Name']. '"');
 					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO publisher_publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$data['Publisher_id'].', '.($_GET['publication']).', NOW())');	 
+					$response = $bdd->query('INSERT INTO Publisher_Publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$data['Publisher_id'].', '.($_GET['publication']).', NOW())');	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

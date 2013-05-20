@@ -35,7 +35,7 @@
 				else {
 					header('Location : searchPublishor.php');
 					exit();
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -44,7 +44,7 @@
 				if(isset($_POST['publisher'])) $_GET['publisher'] = $_POST['publisher'];
 				
 				
-				$names = $bdd->query('SELECT Name FROM publisher WHERE Publisher_id='.$_GET['publisher']);
+				$names = $bdd->query('SELECT Name FROM Publisher WHERE Publisher_id='.$_GET['publisher']);
 				if ($name = $names -> fetch()) { ?> Name of the publisher : 
 					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
 					<a href = <?php echo '"changePublisherName.php?publisher='.$_GET['publisher'].'"';?> title = "changePublisherName"> Change</a> <?php  } ?></a><br /> <br />
@@ -52,7 +52,7 @@
 					
 				
 				$response = $bdd->query('SELECT COUNT(distinct PP.Publication_id) 
-				FROM publisher_publication PP 
+				FROM Publisher_Publication PP 
 				WHERE PP.Publisher_id 
 				= "' . $_GET['publisher'] . '"');
 					
@@ -76,7 +76,7 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, publisher_publication PP 
+						FROM Publication P, Publisher_Publication PP 
 						WHERE P.Publication_id=PP.Publication_id AND PP.Publisher_id
 						= "' . $_GET['publisher'] . '"  
 						ORDER BY P.Title

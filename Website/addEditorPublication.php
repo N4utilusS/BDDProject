@@ -15,13 +15,13 @@ if(isset($_GET['publication']) AND isset($_GET['editor'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
-		
-		$articleRequest = $bdd->query('SELECT * FROM article WHERE Publication_id = '. htmlspecialchars($_GET['publication']));
+		$articleRequest = $bdd->query('SELECT * FROM Article WHERE Publication_id = '. htmlspecialchars($_GET['publication']));
 		if($article = $articleRequest->fetch()) { $isArticle = true;}
 
-		if($isArticle){ $response = $bdd->query('INSERT INTO editor_article (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');}
-		else{ $response = $bdd->query('INSERT INTO editor_book (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');}
+		if($isArticle){ $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');}
+		else{ $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');}
 		
 		
 		

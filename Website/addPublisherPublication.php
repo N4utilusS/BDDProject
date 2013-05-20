@@ -13,9 +13,10 @@ if(isset($_GET['publication']) AND isset($_GET['publisher'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 
-		$response = $bdd->query('INSERT INTO publisher_publication (Publisher_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['publisher']).', '.htmlspecialchars($_GET['publication']).', NOW())');
+		$response = $bdd->query('INSERT INTO Publisher_Publication (Publisher_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['publisher']).', '.htmlspecialchars($_GET['publication']).', NOW())');
 		
 		
 		

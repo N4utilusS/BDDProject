@@ -35,7 +35,7 @@
 				else {
 					header('Location : searchSchool.php');
 					exit();
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -45,7 +45,7 @@
 				
 				$response = $bdd->query('SELECT COUNT(distinct S.School_id) 
 				FROM School S 
-				WHERE s.Name 
+				WHERE S.Name 
 				LIKE "' . $_GET['school'] . '"');
 					
 				$entry = $response -> fetch();
@@ -68,7 +68,7 @@
 				
 
 					$response = $bdd->query('SELECT *
-						FROM school S
+						FROM School S
 						WHERE S.Name 
 						LIKE "' . $_GET['school'] . '"
 						ORDER BY Name  

@@ -37,7 +37,7 @@
 					header('Location : searchAuthor.php');
 					exit();
 				}
-				
+				$bdd->exec("SET CHARACTER SET utf8");
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
@@ -45,7 +45,7 @@
 				if(isset($_POST['author'])) $_GET['author'] = $_POST['author'];
 				
 				$response = $bdd->query('SELECT COUNT(distinct AN.Name) 
-				FROM author_name AN 
+				FROM Author_name AN 
 				WHERE AN.Name 
 				LIKE "' . $_GET['author'] . '"');
 					
@@ -69,7 +69,7 @@
 				
 
 					$response = $bdd->query('SELECT Name, Author_id
-						FROM author_name
+						FROM Author_name
 						WHERE Name 
 						LIKE "' . $_GET['author'] . '"
 						ORDER BY Name  

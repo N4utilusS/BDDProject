@@ -7,7 +7,7 @@
 			catch(Exception $e){
 				die('Error : ' .$e -> getMessage());
 				echo 'Something went wrong...';
-		}
+		}$bdd->exec("SET CHARACTER SET utf8");
 		
 		
 		$isAdmin = $bdd->prepare('SELECT Administrator FROM User WHERE Email LIKE ?');

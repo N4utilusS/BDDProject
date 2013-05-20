@@ -13,17 +13,18 @@ if(isset($_GET['journal']) AND isset($_POST['newName'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
 		if (empty($_POST['newName'])){
-			 $delete = $bdd->query('DELETE FROM journal_article WHERE Journal_name="'.htmlspecialchars($_GET['journal']).'"');
-			 $delete = $bdd->query('DELETE FROM journal WHERE Name="'.htmlspecialchars($_GET['journal']).'"');
+			 $delete = $bdd->query('DELETE FROM Journal_Article WHERE Journal_name="'.htmlspecialchars($_GET['journal']).'"');
+			 $delete = $bdd->query('DELETE FROM Journal WHERE Name="'.htmlspecialchars($_GET['journal']).'"');
 			 redirection('searchJournal.php');
 			 exit();
 			 
 		}
 		else {
-			$changeName = $bdd->query('UPDATE journal SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Name="'.$_GET['journal'].'"');
+			$changeName = $bdd->query('UPDATE Journal SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Name="'.$_GET['journal'].'"');
 			redirection('detailsJournal.php?journal=' . $_POST['newName']);
 			exit();
 		}

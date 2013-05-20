@@ -12,11 +12,11 @@ if(isset($_GET['publication']) AND isset($_GET['editor'])){
 		catch(Exception $e){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
-		}
+		}$bdd->exec("SET CHARACTER SET utf8");
 		
 		//echo 'DELETE FROM author_publication WHERE Author_id='.$_GET['author'].' AND Publication_id='.$_GET['publication'];
 		
-		$response = $bdd->query('DELETE FROM editor_article WHERE Editor_id='.$_GET['editor'].' AND Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Editor_Article WHERE Editor_id='.$_GET['editor'].' AND Publication_id='.$_GET['publication']);
 		
 		
 		

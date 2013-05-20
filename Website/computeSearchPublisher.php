@@ -35,7 +35,7 @@
 				else {
 					header('Location : searchPublishor.php');
 					exit();
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -44,7 +44,7 @@
 				if(isset($_POST['publisher'])) $_GET['publisher'] = $_POST['publisher'];
 				
 				$response = $bdd->query('SELECT COUNT(distinct P.Publisher_id) 
-				FROM publisher P 
+				FROM Publisher P 
 				WHERE P.Name 
 				LIKE "' . $_GET['publisher'] . '"');
 					
@@ -68,7 +68,7 @@
 				
 
 					$response = $bdd->query('SELECT *
-						FROM publisher P
+						FROM Publisher P
 						WHERE P.Name 
 						LIKE "' . $_GET['publisher'] . '"
 						ORDER BY Name  

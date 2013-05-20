@@ -24,8 +24,9 @@
 			catch(Exception $e){
 				die('Error : ' .$e -> getMessage());
 				echo 'Something went wrong...';
-		}
+		}$bdd->exec("SET CHARACTER SET utf8");
 				}
+				
 				
 				else {header('Location : searchPublication.php');
 					exit();}
@@ -37,7 +38,7 @@
 				
 				if(isset($_POST['publication'])) $_GET['publication'] = $_POST['publication'];
 				
-				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) FROM publication P	WHERE P.Title LIKE "' . $_GET['publication'].'"');
+				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) FROM Publication P	WHERE P.Title LIKE "' . $_GET['publication'].'"');
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct P.Publication_id)'];
@@ -58,7 +59,7 @@
 
 				
 		
-					$response = $bdd->query('SELECT DISTINCT P.Title, P.Year, P.Publication_id FROM publication P, book B WHERE P.Title LIKE "' . $_GET['publication'] . '" ORDER BY P.Title LIMIT ' . $_GET['resultMin'] . ', 50');
+					$response = $bdd->query('SELECT DISTINCT P.Title, P.Year, P.Publication_id FROM Publication P, Book B WHERE P.Title LIKE "' . $_GET['publication'] . '" ORDER BY P.Title LIMIT ' . $_GET['resultMin'] . ', 50');
 		
 					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
 						?>

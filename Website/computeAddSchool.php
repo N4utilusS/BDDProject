@@ -36,11 +36,13 @@
 					header('Location : addAuthor.php');
 					exit();
 				}
+				$bdd->exec("SET CHARACTER SET utf8");
+				
 				
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name, School_id FROM school WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, School_id FROM School WHERE Name LIKE "'. $_POST['Name']. '%"');
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -56,10 +58,10 @@
 		
 				if ($exists==false){
 					
-					$response = $bdd->query('INSERT INTO school (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
-					$response = $bdd->query('SELECT School_id FROM school WHERE Name = "'. htmlspecialchars($_POST['Name']). '"');
+					$response = $bdd->query('INSERT INTO School (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
+					$response = $bdd->query('SELECT School_id FROM School WHERE Name = "'. htmlspecialchars($_POST['Name']). '"');
 					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO school_thesis (School_id, Publication_id, Time_stp) VALUES ('.$data['School_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');	 
+					$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$data['School_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

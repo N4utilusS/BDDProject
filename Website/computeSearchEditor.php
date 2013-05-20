@@ -36,6 +36,8 @@
 					header('Location : searchEditor.php');
 					exit();
 				}
+				$bdd->exec("SET CHARACTER SET utf8");
+				
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -44,7 +46,7 @@
 				if(isset($_POST['editor'])) $_GET['editor'] = $_POST['editor'];
 				
 				$response = $bdd->query('SELECT COUNT(distinct E.Editor_id) 
-				FROM editor E 
+				FROM Editor E 
 				WHERE E.Name 
 				LIKE "' . $_GET['editor'] . '"');
 					
@@ -68,7 +70,7 @@
 				
 
 					$response = $bdd->query('SELECT Name, Editor_id
-						FROM editor
+						FROM Editor
 						WHERE Name 
 						LIKE "' . $_GET['editor'] . '"
 						ORDER BY Name  

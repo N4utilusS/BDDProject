@@ -37,7 +37,7 @@
 				else {
 					header('Location : searchEditor.php');
 					exit();
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -46,7 +46,7 @@
 				if(isset($_POST['editor'])) $_GET['editor'] = $_POST['editor'];
 				
 				
-				$names = $bdd->query('SELECT Name FROM editor WHERE Editor_id='.$_GET['editor']);
+				$names = $bdd->query('SELECT Name FROM Editor WHERE Editor_id='.$_GET['editor']);
 				if ($name = $names -> fetch()) { ?> Name of the editor : 
 					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
 					<a href = <?php echo '"changeEditorName.php?editor='.$_GET['editor'].'"';?> title = "changeEditorName"> Change</a> <?php  } ?></a><br /> <br />
@@ -56,12 +56,12 @@
 				
 				
 				$response = mysql_query ('SELECT EA.Publication_id
-				FROM editor_article EA
+				FROM Editor_Article EA
 				WHERE EA.Editor_id 
 				= "' . $_GET['editor'] . '"
 				UNION
 				SELECT EB.Publication_id
-				FROM editor_book EB
+				FROM Editor_Book EB
 				WHERE EB.Editor_id 
 				= "' . $_GET['editor'] . '"', $link);
 				
@@ -84,12 +84,12 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, editor_article EA 
+						FROM Publication P, Editor_Article EA 
 						WHERE P.Publication_id=EA.Publication_id AND EA.Editor_id
 						= "' . $_GET['editor'] . '" 
 						UNION
 						SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, editor_book EB 
+						FROM Publication P, Editor_Book EB 
 						WHERE P.Publication_id=EB.Publication_id AND EB.Editor_id
 						= "' . $_GET['editor'] . '"					 
 						LIMIT ' . $_GET['resultMin'] . ', 50');

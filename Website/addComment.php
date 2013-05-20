@@ -13,15 +13,15 @@ if(isset($_POST['comment']) AND isset($_GET['publication']) AND isset($_SESSION[
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
-		
+		$bdd->exec("SET CHARACTER SET utf8");
 
 		
-		$response = $bdd->query('SELECT * FROM user_publication WHERE Publication_id = ' . htmlspecialchars($_GET['publication']) . ' AND User_id = ' . $_SESSION['User_id']);
+		$response = $bdd->query('SELECT * FROM User_Publication WHERE Publication_id = ' . htmlspecialchars($_GET['publication']) . ' AND User_id = ' . $_SESSION['User_id']);
 		
 		
 		
-		if($data = $response -> fetch()){ $updateComment = $bdd->query('UPDATE user_publication SET Comment = "'.htmlspecialchars($_POST['comment']). '" WHERE Publication_id = '.htmlspecialchars($_GET['publication']). ' AND User_id = '.$_SESSION['User_id']); $response -> closeCursor();}
-		else {$addComment = $bdd->query('INSERT INTO user_publication (User_id, Publication_id, Comment, time_stp) VALUES (' . $_SESSION['User_id'] . ',' . htmlspecialchars($_GET['publication']) . ',"' . 
+		if($data = $response -> fetch()){ $updateComment = $bdd->query('UPDATE User_Publication SET Comment = "'.htmlspecialchars($_POST['comment']). '" WHERE Publication_id = '.htmlspecialchars($_GET['publication']). ' AND User_id = '.$_SESSION['User_id']); $response -> closeCursor();}
+		else {$addComment = $bdd->query('INSERT INTO User_Publication (User_id, Publication_id, Comment, time_stp) VALUES (' . $_SESSION['User_id'] . ',' . htmlspecialchars($_GET['publication']) . ',"' . 
 		htmlspecialchars($_POST['comment']) . '",  NOW())'); $addComment -> closeCursor();}
 		
 		

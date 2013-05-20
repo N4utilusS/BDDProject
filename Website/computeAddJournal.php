@@ -36,11 +36,12 @@
 					header('Location : addJournal.php');
 					exit();
 				}
+				$bdd->exec("SET CHARACTER SET utf8");
 				
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name FROM journal WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name FROM Journal WHERE Name LIKE "'. $_POST['Name']. '%"');
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -56,8 +57,8 @@
 		
 				if ($exists==false){
 					
-					$response = $bdd->query('INSERT INTO journal (Name, Year, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'",'.htmlspecialchars($_POST['Year']).', NOW())');
-					$response = $bdd->query('INSERT INTO journal_article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_POST['Name']).'", '.($_GET['publication']).', NOW())');	 
+					$response = $bdd->query('INSERT INTO Journal (Name, Year, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'",'.htmlspecialchars($_POST['Year']).', NOW())');
+					$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_POST['Name']).'", '.($_GET['publication']).', NOW())');	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

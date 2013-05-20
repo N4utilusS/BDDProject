@@ -13,16 +13,17 @@ if(isset($_GET['school']) AND isset($_POST['newName'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
 		if (empty($_POST['newName'])){
-			 $delete = $bdd->query('DELETE FROM school_thesis WHERE School_id='.htmlspecialchars($_GET['school']));
-			 $delete = $bdd->query('DELETE FROM school WHERE School_id='.htmlspecialchars($_GET['school']));
+			 $delete = $bdd->query('DELETE FROM School_Thesis WHERE School_id='.htmlspecialchars($_GET['school']));
+			 $delete = $bdd->query('DELETE FROM School WHERE School_id='.htmlspecialchars($_GET['school']));
 			 redirection('searchSchool.php');
 			 exit();
 		}
 		else {
-			$changeName = $bdd->query('UPDATE school SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE School_id='.$_GET['school']);
+			$changeName = $bdd->query('UPDATE School SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE School_id='.$_GET['school']);
 			redirection('detailsSchool.php?school=' . $_GET['school']);
 			exit();
 		}

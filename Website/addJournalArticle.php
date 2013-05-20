@@ -13,9 +13,9 @@ if(isset($_GET['publication']) AND isset($_GET['journal'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
-		
+		$bdd->exec("SET CHARACTER SET utf8");
 
-		$response = $bdd->query('INSERT INTO journal_article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_GET['journal']).'", '.htmlspecialchars($_GET['publication']).', NOW())');
+		$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_GET['journal']).'", '.htmlspecialchars($_GET['publication']).', NOW())');
 		
 		
 		

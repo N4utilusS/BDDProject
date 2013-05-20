@@ -27,7 +27,7 @@
 				catch(Exception $e){
 					die('Error : ' .$e -> getMessage());
 					echo 'Something went wrong...';
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 			//------------------------------------------------
 			// Recherche du nbre de publications en rapport avec cet author.

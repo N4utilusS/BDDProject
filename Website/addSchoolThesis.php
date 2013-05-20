@@ -13,9 +13,10 @@ if(isset($_GET['publication']) AND isset($_GET['school'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 
-		$response = $bdd->query('INSERT INTO school_thesis (School_id, Publication_id, Time_stp) VALUES ('.$_GET['school'].', '.$_GET['publication'].', NOW())');
+		$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$_GET['school'].', '.$_GET['publication'].', NOW())');
 		
 		
 		

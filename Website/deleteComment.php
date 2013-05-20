@@ -12,11 +12,11 @@ if(isset($_GET['publication']) AND isset($_GET['user'])){
 		catch(Exception $e){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
-		}
+		}$bdd->exec("SET CHARACTER SET utf8");
 		
 
 		
-		$response = $bdd->query('DELETE FROM user_publication WHERE Publication_id = ' . htmlspecialchars($_GET['publication']) . ' AND User_id = ' . $_GET['user']);
+		$response = $bdd->query('DELETE FROM User_Publication WHERE Publication_id = ' . htmlspecialchars($_GET['publication']) . ' AND User_id = ' . $_GET['user']);
 		
 		
 		

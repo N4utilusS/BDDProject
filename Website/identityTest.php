@@ -14,7 +14,7 @@
 		catch(Exception $e){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
-		}
+		}$bdd->exec("SET CHARACTER SET utf8");
 		
 		$response = $bdd->query('SELECT User_id, Administrator FROM User WHERE Email = "' . $_POST['email'] . '" AND Password = "' . $_POST['password'] . '"');
 

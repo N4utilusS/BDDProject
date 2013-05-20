@@ -35,7 +35,7 @@
 				else {
 					header('Location : searchJournal.php');
 					exit();
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -43,7 +43,7 @@
 				
 				if(isset($_POST['journal'])) $_GET['journal'] = $_POST['journal'];
 				
-				$names = $bdd->query('SELECT Name FROM journal WHERE Name="'.$_GET['journal'].'"');
+				$names = $bdd->query('SELECT Name FROM Journal WHERE Name="'.$_GET['journal'].'"');
 				if ($name = $names -> fetch()) { ?> Name of the journal : 
 					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
 					<a href = <?php echo '"changeJournalName.php?journal='.$_GET['journal'].'"';?> title = "changeJournalName"> Change</a> <?php  } ?></a><br /> <br />
@@ -54,7 +54,7 @@
 				
 				
 				$response = $bdd->query('SELECT COUNT(distinct JA.Publication_id) 
-				FROM journal_article JA 
+				FROM Journal_Article JA 
 				WHERE JA.Journal_name 
 				= "' . $_GET['journal'] . '"');
 					
@@ -78,7 +78,7 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, journal_article JA
+						FROM Publication P, Journal_Article JA
 						WHERE P.Publication_id=JA.Publication_id AND JA.Journal_name
 						= "' . $_GET['journal'] . '"  
 						ORDER BY P.Title

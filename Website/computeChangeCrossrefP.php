@@ -13,10 +13,11 @@ if (isset($_GET['publication']) AND isset($_POST['Crossref'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
 		
-		$changeDBLP = $bdd->query('UPDATE publication SET Crossref = "'.htmlspecialchars($_POST['Crossref']).'" WHERE Publication_id='.htmlspecialchars($_GET['publication']));
+		$changeDBLP = $bdd->query('UPDATE Publication SET Crossref = "'.htmlspecialchars($_POST['Crossref']).'" WHERE Publication_id='.htmlspecialchars($_GET['publication']));
 		
 		
 		

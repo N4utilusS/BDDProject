@@ -8,6 +8,7 @@
 				die('Error : ' .$e -> getMessage());
 				echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?,0)');
 		$addUser -> execute(array(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])));

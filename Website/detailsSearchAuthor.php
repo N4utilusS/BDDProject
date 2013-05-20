@@ -35,7 +35,7 @@
 				else {
 					header('Location : searchAuthor.php');
 					exit();
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -43,8 +43,8 @@
 				
 				if(isset($_POST['author'])) $_GET['author'] = $_POST['author'];
 				
-				$information = $bdd->query('SELECT * FROM author WHERE Author_id='.$_GET['author']);
-				$names = $bdd->query('SELECT Name FROM author_name WHERE Author_id='.$_GET['author']);
+				$information = $bdd->query('SELECT * FROM Author WHERE Author_id='.$_GET['author']);
+				$names = $bdd->query('SELECT Name FROM Author_Name WHERE Author_id='.$_GET['author']);
 				$data = $information -> fetch();
 				
 				
@@ -80,7 +80,7 @@
 				<?php
 				
 				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) 
-				FROM publication P, author A, author_publication AP, author_name AN 
+				FROM Publication P, Author A, Author_Publication AP, Author_Name AN 
 				WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND A.Author_id 
 				= ' . $_GET['author']);
 					
@@ -104,7 +104,7 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, author A, author_publication AP, author_name AN 
+						FROM Publication P, Author A, Author_Publication AP, Author_Name AN 
 						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND A.Author_id 
 						= ' . $_GET['author'] . '
 						ORDER BY P.Title  

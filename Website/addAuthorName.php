@@ -13,10 +13,11 @@ if(!empty($_POST['name']) AND isset($_GET['author'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		//echo 'DELETE FROM author_publication WHERE Author_id='.$_GET['author'].' AND Publication_id='.$_GET['publication'];
 		
-		$response = $bdd->query('INSERT INTO author_name (Author_id, Name, Time_stp) VALUES('.$_GET['author'].', "'.$_POST['name'].'", NOW())');
+		$response = $bdd->query('INSERT INTO Author_Name (Author_id, Name, Time_stp) VALUES('.$_GET['author'].', "'.$_POST['name'].'", NOW())');
 		
 		
 		

@@ -66,7 +66,7 @@
 				catch(Exception $e){
 					die('Error : ' .$e -> getMessage());
 					echo 'Something went wrong...';
-				}
+				}$bdd->exec("SET CHARACTER SET utf8");
 					//------------------------------------------------
 					// On va chercher le nombre de user pour la suite.
 					//------------------------------------------------

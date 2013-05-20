@@ -12,21 +12,21 @@ if(isset($_GET['publication'])){
 		catch(Exception $e){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
-		}
+		}$bdd->exec("SET CHARACTER SET utf8");
 		
 		
-		$response = $bdd->query('DELETE FROM author_publication WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM editor_article WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM editor_book WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM journal_article WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM publisher_publication WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM user_publication WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM school_thesis WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM phdthesis WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM thesis WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM article WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM book WHERE Publication_id='.$_GET['publication']);
-		$response = $bdd->query('DELETE FROM publication WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Author_Publication WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Editor_Article WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Editor_Book WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Journal_Article WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Publisher_Publication WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM User_Publication WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM School_Thesis WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM PHDThesis WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Thesis WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Article WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Book WHERE Publication_id='.$_GET['publication']);
+		$response = $bdd->query('DELETE FROM Publication WHERE Publication_id='.$_GET['publication']);
 		
 		
 		redirection('searchPublication.php');

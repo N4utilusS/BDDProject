@@ -36,6 +36,7 @@
 					header('Location : searchJournal.php');
 					exit();
 				}
+				$bdd->exec("SET CHARACTER SET utf8");
 				
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
@@ -44,7 +45,7 @@
 				if(isset($_POST['journal'])) $_GET['journal'] = $_POST['journal'];
 				
 				$response = $bdd->query('SELECT COUNT(distinct J.Name) 
-				FROM journal J 
+				FROM Journal J 
 				WHERE J.Name 
 				LIKE "' . $_GET['journal'] . '"');
 					
@@ -68,7 +69,7 @@
 				
 
 					$response = $bdd->query('SELECT DISTINCT Name
-						FROM journal
+						FROM Journal
 						WHERE Name 
 						LIKE "' . $_GET['journal'] . '"
 						ORDER BY Name  

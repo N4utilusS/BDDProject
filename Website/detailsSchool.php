@@ -36,14 +36,14 @@
 					header('Location : searchSchool.php');
 					exit();
 				}
-				
+				$bdd->exec("SET CHARACTER SET utf8");
 				//------------------------------------------------
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
 				
 				if(isset($_POST['school'])) $_GET['school'] = $_POST['school'];
 				
-				$names = $bdd->query('SELECT Name FROM school WHERE School_id='.$_GET['school']);
+				$names = $bdd->query('SELECT Name FROM School WHERE School_id='.$_GET['school']);
 				if ($name = $names -> fetch()) { ?> Name of the school : 
 					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
 					<a href = <?php echo '"changeSchoolName.php?school='.$_GET['school'].'"';?> title = "changeSchoolName"> Change</a> <?php  } ?></a><br /> <br />
@@ -51,7 +51,7 @@
 				
 				
 				$response = $bdd->query('SELECT COUNT(distinct ST.Publication_id) 
-				FROM school_thesis ST 
+				FROM School_Thesis ST 
 				WHERE ST.School_id 
 				= "' . $_GET['school'] . '"');
 					
@@ -75,7 +75,7 @@
 				
 
 					$response = $bdd->query('SELECT P.Title, P.Year, P.Publication_id
-						FROM publication P, school_thesis ST 
+						FROM Publication P, School_Thesis ST 
 						WHERE P.Publication_id=ST.Publication_id AND ST.School_id
 						= "' . $_GET['school'] . '" 
 						ORDER BY P.Title 

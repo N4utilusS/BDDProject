@@ -13,16 +13,17 @@ if(isset($_GET['publisher']) AND isset($_POST['newName'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
 		if (empty($_POST['newName'])){
-			 $delete = $bdd->query('DELETE FROM publisher_publication WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
-			 $delete = $bdd->query('DELETE FROM publisher WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
+			 $delete = $bdd->query('DELETE FROM Publisher_Publication WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
+			 $delete = $bdd->query('DELETE FROM Publisher WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
 			 redirection('searchPublishor.php');
 			 exit();
 		}
 		else {
-			$changeName = $bdd->query('UPDATE publisher SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
+			$changeName = $bdd->query('UPDATE Publisher SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Publisher_id='.htmlspecialchars($_GET['publisher']));
 			redirection('detailsPublisher.php?publisher=' . htmlspecialchars($_GET['publisher']));
 			exit();
 		}

@@ -37,12 +37,13 @@ $isArticle=false; ?>
 					header('Location : addAuthor.php');
 					exit();
 				}
+				$bdd->exec("SET CHARACTER SET utf8");
 				
 				$exists = false;
 				
-				$articleRequest = $bdd->query('SELECT * FROM article WHERE Publication_id = '. htmlspecialchars($_GET['publication']));
+				$articleRequest = $bdd->query('SELECT * FROM Article WHERE Publication_id = '. htmlspecialchars($_GET['publication']));
 				if($article = $articleRequest->fetch()) $isArticle = true;
-				$response = $bdd->query('SELECT DISTINCT Name, Editor_id FROM editor WHERE Name LIKE "'. htmlspecialchars($_POST['Name']). '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, Editor_id FROM Editor WHERE Name LIKE "'. htmlspecialchars($_POST['Name']). '%"');
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -58,11 +59,11 @@ $isArticle=false; ?>
 		
 				if ($exists==false){
 					
-					$response = $bdd->query('INSERT INTO editor (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
-					$response = $bdd->query('SELECT Editor_id FROM editor WHERE Name = "'. htmlspecialchars($_POST['Name']). '"');
+					$response = $bdd->query('INSERT INTO Editor (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
+					$response = $bdd->query('SELECT Editor_id FROM Editor WHERE Name = "'. htmlspecialchars($_POST['Name']). '"');
 					$data = $response -> fetch();
-					if ($isArticle) $response = $bdd->query('INSERT INTO editor_article (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');
-					else $response = $bdd->query('INSERT INTO editor_book (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');		 
+					if ($isArticle) $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');
+					else $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');		 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

@@ -13,10 +13,10 @@ if (isset($_GET['publication']) AND isset($_POST['Pages'])){
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
-		
-		$changeDBLP = $bdd->query('UPDATE article SET Pages = "'.htmlspecialchars($_POST['Pages']).'" WHERE Publication_id='.htmlspecialchars($_GET['publication']));
+		$changeDBLP = $bdd->query('UPDATE Article SET Pages = "'.htmlspecialchars($_POST['Pages']).'" WHERE Publication_id='.htmlspecialchars($_GET['publication']));
 		
 		
 		

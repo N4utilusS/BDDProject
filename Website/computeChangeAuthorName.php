@@ -13,14 +13,15 @@ if(isset($_GET['name']) AND isset($_GET['author']) AND isset($_POST['newName']))
 			die('Error : ' .$e -> getMessage());
 			//echo 'Something went wrong...';
 		}
+		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
 		if (empty($_POST['newName'])){
-			 $delete = $bdd->query('DELETE FROM author_name WHERE Author_id='.htmlspecialchars($_GET['author']).' AND Name="'.htmlspecialchars($_GET['name']).'"');
+			 $delete = $bdd->query('DELETE FROM Author_Name WHERE Author_id='.htmlspecialchars($_GET['author']).' AND Name="'.htmlspecialchars($_GET['name']).'"');
 			 //echo 'DELETE FROM author_name WHERE Author_id='.$_GET['author'].' AND Name="'.$_GET['name'].'"';
 		}
 		else {
-			$changeName = $bdd->query('UPDATE author_name SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Author_id='.$_GET['author'].' AND Name="'.htmlspecialchars($_GET['name']).'"');
+			$changeName = $bdd->query('UPDATE Author_Name SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Author_id='.$_GET['author'].' AND Name="'.htmlspecialchars($_GET['name']).'"');
 			//echo 'UPDATE author_name SET Name = "'.$_POST['newName'].'" WHERE Author_id='.$_GET['author'].' AND Name="'.$_GET['name'].'"';
 		}
 		

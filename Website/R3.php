@@ -10,11 +10,11 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>R1 <?php echo $_SESSION['email']; ?></h1>
+			<h1>R1 <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
-			Les ID des auteurs qui ont écrit au moins deux articles pendant la même année.
+			
 			<?php
 			
 			//------------------------------------------------
@@ -27,33 +27,36 @@
 				catch(Exception $e){
 					die('Error : ' .$e -> getMessage());
 					echo 'Something went wrong...';
-				}$bdd->exec("SET CHARACTER SET utf8");
+				}
 				
 			//------------------------------------------------
 			// Recherche du nbre de publications en rapport avec cet author.
 			//------------------------------------------------
 			
-				if (!isset($_SESSION['R2Number'])){
+				if (isset($_POST['author'])) {
+					$_SESSION['R3Author'] = $_POST['author'];
 					
 					$response = $bdd->query('SELECT COUNT(*)
 											FROM (
-												SELECT DISTINCT AP1.Author_id
-												FROM Author_Publication AP1, Author_Publication AP2, Article AR1, Publication P1, Publication P2, Article AR2
-												WHERE AP1.Author_id = AP2.Author_id
-												AND AR1.Publication_id = P1.Publication_id
-												AND P1.Publication_id = AP1.Publication_id
-												AND AR2.Publication_id = P2.Publication_id
-												AND P2.Publication_id = AP2.Publication_id
-												AND P1.Year = P2.Year
-												AND P1.Publication_id != P2.Publication_id
+												SELECT distinct ap4.Author_id
+												FROM Author_Publication ap1, Author_Publication ap2, Author_Publication ap3, Author_Publication ap4
+												WHERE ap1.Author_id = ' . $_SESSION['R3Author'] . '
+													AND ap1.Publication_id = ap2.Publication_id
+													AND ap3.Publication_id = ap4.Publication_id
+													AND ap1.Publication_id != ap3.Publication_id
+													AND ap1.Author_id != ap2.Author_id
+													AND ap3.Author_id != ap4.Author_id
+													AND ap1.Author_id != ap4.Author_id
+													AND ap2.Author_id = ap3.Author_id
 												) req');
 					$entry = $response->fetch();
 					
-					$_SESSION['R2Number'] = $entryNumber = (int) $entry['COUNT(*)'];
+					$_SESSION['R3Number'] = (int) $entry['COUNT(*)'];
 					
 					$response->closeCursor();
 				}
-				else $entryNumber = (int) $_SESSION['R2Number'];
+				
+				echo 'Les ID des auteurs Y qui sont à une distance 2 de ' . $_SESSION['R3Author'] . ' :';
 				
 			//------------------------------------------------
 			// Vérification ou création de resultMin pour pouvoir bien gérer les liens page précédente et suivante.
@@ -61,7 +64,7 @@
 			
 				if (!empty($_GET['resultMin'])){	// Existe ?
 					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $_SESSION['R3Number']) $_GET['resultMin'] = 0;	// Nombre bissextile ?
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -71,15 +74,16 @@
 			// Requête.
 			//------------------------------------------------
 				
-				$response = $bdd->query('SELECT DISTINCT AP1.Author_id
-										FROM Author_Publication AP1, Author_Publication AP2, Article AR1, Publication P1, Publication P2, Article AR2
-										WHERE AP1.Author_id = AP2.Author_id
-										AND AR1.Publication_id = P1.Publication_id
-										AND P1.Publication_id = AP1.Publication_id
-										AND AR2.Publication_id = P2.Publication_id
-										AND P2.Publication_id = AP2.Publication_id
-										AND P1.Year = P2.Year
-										AND P1.Publication_id != P2.Publication_id
+				$response = $bdd->query('SELECT distinct ap4.Author_id
+										FROM Author_Publication ap1, Author_Publication ap2, Author_Publication ap3, Author_Publication ap4
+										WHERE ap1.Author_id = ' . $_SESSION['R3Author'] . '-- Insert Author_id here.
+											AND ap1.Publication_id = ap2.Publication_id
+											AND ap3.Publication_id = ap4.Publication_id
+											AND ap1.Publication_id != ap3.Publication_id
+											AND ap1.Author_id != ap2.Author_id
+											AND ap3.Author_id != ap4.Author_id
+											AND ap1.Author_id != ap4.Author_id
+											AND ap2.Author_id = ap3.Author_id
 										LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 			//------------------------------------------------
@@ -97,11 +101,11 @@
 				$response->closeCursor();
 				
 				if ($_GET['resultMin'] > 0){ ?>
-					<a href= <?php echo '"R2.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
+					<a href= <?php echo '"R3.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
 				<?php }
 				
-				if ($_GET['resultMin'] < $entryNumber-51){ ?>
-					<a href= <?php echo '"R2.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
+				if ($_GET['resultMin'] < $_SESSION['R3Number']-51 AND $_SESSION['R3Number']-51 > 0){ ?>
+					<a href= <?php echo '"R3.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
 			<?php }
 			?>
 		

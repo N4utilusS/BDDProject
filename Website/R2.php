@@ -10,7 +10,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>R1 <?php echo $_SESSION['email']; ?></h1>
+			<h1>R1 <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -27,7 +27,7 @@
 				catch(Exception $e){
 					die('Error : ' .$e -> getMessage());
 					echo 'Something went wrong...';
-				}$bdd->exec("SET CHARACTER SET utf8");
+				}
 				
 			//------------------------------------------------
 			// Recherche du nbre de publications en rapport avec cet author.

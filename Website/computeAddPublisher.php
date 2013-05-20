@@ -41,7 +41,7 @@
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name, Publisher_id FROM Publisher WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, Publisher_id FROM Publisher WHERE Name LIKE "'. $_POST['Name']. '%"'); // Vérifie si le nom du publisher matche avec celui d'un publisher préexistant.
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -55,12 +55,12 @@
 					
 					$response->closeCursor(); // Termine le traitement de la requête
 		
-				if ($exists==false){
+				if ($exists==false){ // Si le nom entré ne matche avec rien d'existant, le publisher n'existe pas et il faut le créer.
 					
-					$response = $bdd->query('INSERT INTO Publisher (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
-					$response = $bdd->query('SELECT Publisher_id FROM Publisher WHERE Name = "'. $_POST['Name']. '"');
+					$response = $bdd->query('INSERT INTO Publisher (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())'); // On le crée
+					$response = $bdd->query('SELECT Publisher_id FROM Publisher WHERE Name = "'. $_POST['Name']. '"'); // On va chercher son ID
 					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO Publisher_Publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$data['Publisher_id'].', '.($_GET['publication']).', NOW())');	 
+					$response = $bdd->query('INSERT INTO Publisher_Publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$data['Publisher_id'].', '.($_GET['publication']).', NOW())'); // Et on le lie à la publication.	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

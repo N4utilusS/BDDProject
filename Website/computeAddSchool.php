@@ -42,7 +42,7 @@
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name, School_id FROM School WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, School_id FROM School WHERE Name LIKE "'. $_POST['Name']. '%"'); // On va chercher les écoles dont le nom matche avec le nom entré.
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -56,12 +56,12 @@
 					
 					$response->closeCursor(); // Termine le traitement de la requête
 		
-				if ($exists==false){
+				if ($exists==false){ // Si aucune école ne matche, l'école entrée n'existe pas et il faut la créer.
 					
-					$response = $bdd->query('INSERT INTO School (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
-					$response = $bdd->query('SELECT School_id FROM School WHERE Name = "'. htmlspecialchars($_POST['Name']). '"');
+					$response = $bdd->query('INSERT INTO School (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())'); // On la crée.
+					$response = $bdd->query('SELECT School_id FROM School WHERE Name = "'. htmlspecialchars($_POST['Name']). '"'); // On récupère son ID.
 					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$data['School_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');	 
+					$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$data['School_id'].', '.htmlspecialchars($_GET['publication']).', NOW())'); // Et on se sert de l'ID pour créer un lien entre l'école et la publication.	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

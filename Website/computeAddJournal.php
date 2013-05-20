@@ -41,7 +41,7 @@
 				$exists = false;
 				
 				
-				$response = $bdd->query('SELECT DISTINCT Name FROM Journal WHERE Name LIKE "'. $_POST['Name']. '%"');
+				$response = $bdd->query('SELECT DISTINCT Name FROM Journal WHERE Name LIKE "'. $_POST['Name']. '%"'); // On cherche les journaux dont le nom matche avec celui rentré.
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -55,10 +55,10 @@
 					
 					$response->closeCursor(); // Termine le traitement de la requête
 		
-				if ($exists==false){
+				if ($exists==false){ // Si le nom ne matche pas, le journal n'existe pas encore et il faut le créer.
 					
-					$response = $bdd->query('INSERT INTO Journal (Name, Year, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'",'.htmlspecialchars($_POST['Year']).', NOW())');
-					$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_POST['Name']).'", '.($_GET['publication']).', NOW())');	 
+					$response = $bdd->query('INSERT INTO Journal (Name, Year, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'",'.htmlspecialchars($_POST['Year']).', NOW())'); // On crée le journal.
+					$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_POST['Name']).'", '.($_GET['publication']).', NOW())');	// Et on l'associe à l'article. 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

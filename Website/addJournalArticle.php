@@ -15,7 +15,7 @@ if(isset($_GET['publication']) AND isset($_GET['journal'])){
 		}
 		$bdd->exec("SET CHARACTER SET utf8");
 
-		$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_GET['journal']).'", '.htmlspecialchars($_GET['publication']).', NOW())');
+		$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_GET['journal']).'", '.htmlspecialchars($_GET['publication']).', NOW())');//Lie l'article et le journal.
 		
 		
 		

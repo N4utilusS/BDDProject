@@ -16,7 +16,7 @@ if(isset($_GET['publication']) AND isset($_GET['school'])){
 		$bdd->exec("SET CHARACTER SET utf8");
 		
 
-		$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$_GET['school'].', '.$_GET['publication'].', NOW())');
+		$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$_GET['school'].', '.$_GET['publication'].', NOW())'); // Lie l'école et la thèse.
 		
 		
 		

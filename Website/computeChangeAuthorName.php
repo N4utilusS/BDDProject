@@ -17,11 +17,11 @@ if(isset($_GET['name']) AND isset($_GET['author']) AND isset($_POST['newName']))
 		
 		
 		if (empty($_POST['newName'])){
-			 $delete = $bdd->query('DELETE FROM Author_Name WHERE Author_id='.htmlspecialchars($_GET['author']).' AND Name="'.htmlspecialchars($_GET['name']).'"');
+			 $delete = $bdd->query('DELETE FROM Author_Name WHERE Author_id='.htmlspecialchars($_GET['author']).' AND Name="'.htmlspecialchars($_GET['name']).'"'); // Si le nom entré est vide on supprime une entrée nom_auteur
 			 //echo 'DELETE FROM author_name WHERE Author_id='.$_GET['author'].' AND Name="'.$_GET['name'].'"';
 		}
 		else {
-			$changeName = $bdd->query('UPDATE Author_Name SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Author_id='.$_GET['author'].' AND Name="'.htmlspecialchars($_GET['name']).'"');
+			$changeName = $bdd->query('UPDATE Author_Name SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE Author_id='.$_GET['author'].' AND Name="'.htmlspecialchars($_GET['name']).'"'); // Si le nom entré est non vide on doit mettre à jour une entrée nom_auteur.
 			//echo 'UPDATE author_name SET Name = "'.$_POST['newName'].'" WHERE Author_id='.$_GET['author'].' AND Name="'.$_GET['name'].'"';
 		}
 		

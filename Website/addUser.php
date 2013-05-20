@@ -11,9 +11,9 @@
 			$bdd->exec("SET CHARACTER SET utf8");
 			
 		
-		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?, 0)');
+		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?, 0)'); // Crée un nouvel utilisateur.
 		$addUser -> execute(array(	htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])));
-		$addUser -> closeCursor();	// Ne sais pas si nécessaire ici vu qu'on ne retourne rien, mais on met dans la base.
+		$addUser -> closeCursor();	
 		
 		header('Location: index.php');
 	}

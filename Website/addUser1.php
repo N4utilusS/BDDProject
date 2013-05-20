@@ -10,7 +10,7 @@
 		}
 		$bdd->exec("SET CHARACTER SET utf8");
 		
-		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?,0)');
+		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?,0)'); // Crée un nouvel utilisateur.
 		$addUser -> execute(array(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])));
 		
 		header('Location: manageUser.php');

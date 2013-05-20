@@ -17,7 +17,7 @@ if(!empty($_POST['name']) AND isset($_GET['author'])){
 		
 		//echo 'DELETE FROM author_publication WHERE Author_id='.$_GET['author'].' AND Publication_id='.$_GET['publication'];
 		
-		$response = $bdd->query('INSERT INTO Author_Name (Author_id, Name, Time_stp) VALUES('.$_GET['author'].', "'.$_POST['name'].'", NOW())');
+		$response = $bdd->query('INSERT INTO Author_Name (Author_id, Name, Time_stp) VALUES('.$_GET['author'].', "'.$_POST['name'].'", NOW())'); // Rajoute une association auteur-nom d'auteur (un même auteur aura un nom supplémentaire)
 		
 		
 		

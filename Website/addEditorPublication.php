@@ -17,11 +17,11 @@ if(isset($_GET['publication']) AND isset($_GET['editor'])){
 		}
 		$bdd->exec("SET CHARACTER SET utf8");
 		
-		$articleRequest = $bdd->query('SELECT * FROM Article WHERE Publication_id = '. htmlspecialchars($_GET['publication']));
+		$articleRequest = $bdd->query('SELECT * FROM Article WHERE Publication_id = '. htmlspecialchars($_GET['publication'])); // On vérifie si la publication est un article.
 		if($article = $articleRequest->fetch()) { $isArticle = true;}
 
-		if($isArticle){ $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');}
-		else{ $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');}
+		if($isArticle){ $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');} //Si la publication est un article, il faut ajouter un lien editor-article.
+		else{ $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.htmlspecialchars($_GET['editor']).', '.htmlspecialchars($_GET['publication']).', NOW())');} //Sinon il faut ajouter un lien editor-book.
 		
 		
 		

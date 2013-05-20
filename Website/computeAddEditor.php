@@ -41,9 +41,9 @@ $isArticle=false; ?>
 				
 				$exists = false;
 				
-				$articleRequest = $bdd->query('SELECT * FROM Article WHERE Publication_id = '. htmlspecialchars($_GET['publication']));
+				$articleRequest = $bdd->query('SELECT * FROM Article WHERE Publication_id = '. htmlspecialchars($_GET['publication'])); // On vérifie si la publication est un article.
 				if($article = $articleRequest->fetch()) $isArticle = true;
-				$response = $bdd->query('SELECT DISTINCT Name, Editor_id FROM Editor WHERE Name LIKE "'. htmlspecialchars($_POST['Name']). '%"');
+				$response = $bdd->query('SELECT DISTINCT Name, Editor_id FROM Editor WHERE Name LIKE "'. htmlspecialchars($_POST['Name']). '%"'); // On donne tous les éditeurs dont le nom matche avec le nom entré.
 				
 				while ($data = $response -> fetch()){
 						?>
@@ -59,11 +59,11 @@ $isArticle=false; ?>
 		
 				if ($exists==false){
 					
-					$response = $bdd->query('INSERT INTO Editor (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())');
-					$response = $bdd->query('SELECT Editor_id FROM Editor WHERE Name = "'. htmlspecialchars($_POST['Name']). '"');
+					$response = $bdd->query('INSERT INTO Editor (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())'); // Si le nom ne matche pas on rajoute un éditeur.
+					$response = $bdd->query('SELECT Editor_id FROM Editor WHERE Name = "'. htmlspecialchars($_POST['Name']). '"'); // On récupère son ID.
 					$data = $response -> fetch();
-					if ($isArticle) $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');
-					else $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');		 
+					if ($isArticle) $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())'); // Et on s'en sert pour rajouter un lien editeur article si la publication est un article.
+					else $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');	// Ou un lien éditeur livre si la publication est un livre.	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

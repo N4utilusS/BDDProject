@@ -23,7 +23,7 @@
 		<section> <!--Zone centrale-->
 		
 		
-		<?php if(!empty($_POST['Name']) AND !empty($_GET['publication']) AND !empty($_POST['Year'])){
+		<?php if(!empty($_POST['Name']) AND !empty($_GET['publication']) AND isset($_POST['Year'])){
 					try{	
 					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 					}	

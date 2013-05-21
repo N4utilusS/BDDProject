@@ -16,9 +16,7 @@
 		
 		<section> <!--Zone centrale-->
 			<p>Ca c'est notre site !</p>
-			<?php echo '<pre>';
-			print_r($_SESSION);
-			echo '</pre>'; ?>
+			
 		</section>	
 		
 		<nav> <!--Menu-->

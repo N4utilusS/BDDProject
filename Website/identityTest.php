@@ -17,19 +17,16 @@
 		}
 		$bdd->exec("SET CHARACTER SET utf8");
 		
-		$response = $bdd->query('SELECT User_id, Administrator FROM User WHERE Email = "' . $_POST['email'] . '" AND Password = "' . $_POST['password'] . '"');
+		$res = hash("sha256", htmlspecialchars($_POST['password']));
+		$response = $bdd->query('SELECT User_id, Administrator FROM User WHERE Email = "' . htmlspecialchars($_POST['email']) . '" AND Password = "' . $res . '"');
 
 		//echo 'derp0 <br />';
 		if ($data = $response -> fetch()){
-			echo 'huuur <br />';
+
 			$_SESSION['email'] = $_POST['email']; // On aurait pu utiliser la donnée email reçues de la requête...
 			$_SESSION['administrator'] = $data['Administrator'];
-			$_SESSION['User_id'] = $data['User_id'];
+			//$_SESSION['User_id'] = $data['User_id'];
 			
-			echo $_SESSION['email'] . ' ' . $_SESSION['administrator'] . '<br />';
-			echo '<pre>';
-			print_r($_SESSION);
-			echo '</pre>';
 			
 		}
 		

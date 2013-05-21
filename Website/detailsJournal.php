@@ -41,7 +41,7 @@
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
 				
-				if(isset($_POST['journal'])) $_SESSION[$_GET['journal'] = $_POST['journal'];
+				if(isset($_POST['journal'])) $_GET['journal'] = $_POST['journal'];
 				
 				$names = $bdd->query('SELECT Name FROM Journal WHERE Name="'.$_GET['journal'].'"');
 				if ($name = $names -> fetch()) { ?> Name of the journal : 

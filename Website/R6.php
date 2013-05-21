@@ -127,7 +127,7 @@ d’auteurs moyen par article depuis leur année de création et ce pour tous le
 				
 				while($data = $response->fetch()){ ?>
 					<p>
-					<a href= <?php echo '"detailsJournal.php=' . $data['KeptJournal'] . '"';?> >
+					<a href= <?php echo '"detailsJournal.php?journal=' . $data['KeptJournal'] . '"';?> >
 	    			<strong> <?php echo $data['KeptJournal']; ?> </strong> </a> <?php echo ' | ' . $data['NumberArticle'] . ' | ' . $data['AvgArticlePerYear'] . ' | ' . $data['AvgAuthorPerArticle']; ?> <br /> 				
 					</p>
 				<?php

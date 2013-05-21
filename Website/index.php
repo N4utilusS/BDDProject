@@ -1,5 +1,5 @@
 
-<?php if(!isset($_SESSION)) session_start(); ?>
+<?php session_start(); ?>
 
 <!DOCTYPE  html>
 
@@ -11,11 +11,14 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Welcome <?php if ($_SESSION['email']) echo $_SESSION['email']; ?> !</h1>
+			<h1>Welcome <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?> !</h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
-			<p>Ca c'est notre site !</p>	
+			<p>Ca c'est notre site !</p>
+			<?php echo '<pre>';
+			print_r($_SESSION);
+			echo '</pre>'; ?>
 		</section>	
 		
 		<nav> <!--Menu-->

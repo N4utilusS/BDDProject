@@ -42,12 +42,12 @@
 				// Recherche du nbre de publications en rapport avec cet author.
 				//------------------------------------------------
 				
-				if(isset($_POST['author'])) $_GET['author'] = $_POST['author'];
+				if(isset($_POST['author'])) $_GET['author'] = $_POST['author']; 
 				
 				$response = $bdd->query('SELECT COUNT(distinct AN.Name) 
 				FROM Author_name AN 
 				WHERE AN.Name 
-				LIKE "' . $_GET['author'] . '"');
+				LIKE "' . $_GET['author'] . '"'); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct AN.Name)'];
@@ -73,7 +73,7 @@
 						WHERE Name 
 						LIKE "' . $_GET['author'] . '"
 						ORDER BY Name  
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // On sélectionne les noms et les ID pour pouvoir les afficher (on affiche aussi les ID pour pouvoir reconnaître un auteur ayant plusieurs noms)
 				
 					
 		

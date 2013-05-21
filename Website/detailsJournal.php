@@ -56,7 +56,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct JA.Publication_id) 
 				FROM Journal_Article JA 
 				WHERE JA.Journal_name 
-				= "' . $_GET['journal'] . '"');
+				= "' . $_GET['journal'] . '"'); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct JA.Publication_id)'];
@@ -70,7 +70,7 @@
 				
 				if (!empty($_GET['resultMin'])){	// Existe ?
 					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -82,12 +82,12 @@
 						WHERE P.Publication_id=JA.Publication_id AND JA.Journal_name
 						= "' . $_GET['journal'] . '"  
 						ORDER BY P.Title
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // On sélectionne les publications liées au journal pour les afficher.
 				
 					
 		
 		
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
+					while ($data = $response -> fetch()){ 
 						?>
     					<p>
     					<a href= <?php echo '"detailsPublication.php?publication='.($data['Publication_id']).'"';?>>

@@ -63,10 +63,10 @@
 				SELECT EB.Publication_id
 				FROM Editor_Book EB
 				WHERE EB.Editor_id 
-				= "' . $_GET['editor'] . '"', $link);
+				= "' . $_GET['editor'] . '"', $link); 
 				
 					
-				$entryNumber = mysql_num_rows($response);
+				$entryNumber = mysql_num_rows($response); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 			
 			
 
@@ -76,7 +76,7 @@
 				
 				if (!empty($_GET['resultMin'])){	// Existe ?
 					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -92,12 +92,12 @@
 						FROM Publication P, Editor_Book EB 
 						WHERE P.Publication_id=EB.Publication_id AND EB.Editor_id
 						= "' . $_GET['editor'] . '"					 
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // On sort les publications publiées par l'éditeur pour pouvoir les afficher.
 				
 					
 		
 		
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
+					while ($data = $response -> fetch()){ 
 						?>
     					<p>
     					<a href= <?php echo '"detailsPublication.php?publication='.($data['Publication_id']).'"';?>>

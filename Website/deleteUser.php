@@ -10,11 +10,11 @@
 		}$bdd->exec("SET CHARACTER SET utf8");
 		
 		
-		$isAdmin = $bdd->prepare('SELECT Administrator FROM User WHERE Email LIKE ?');
+		$isAdmin = $bdd->prepare('SELECT Administrator FROM User WHERE Email LIKE ?'); // On veut savoir si l'utilisateur visé par la tentative de suppression est un admin
 		$isAdmin -> execute(array($_POST['email']));
 		if ($data = $isAdmin -> fetch()){
 			if ($data['Administrator'] == 0){
-				$deleteUser = $bdd->prepare('DELETE FROM User WHERE Email LIKE ?');
+				$deleteUser = $bdd->prepare('DELETE FROM User WHERE Email LIKE ?'); // S'il n'est pas un admin, il faut le supprimer.
 				$deleteUser -> execute(array($_POST['email']));
 			}
 		}

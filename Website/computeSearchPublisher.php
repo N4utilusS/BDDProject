@@ -46,7 +46,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct P.Publisher_id) 
 				FROM Publisher P 
 				WHERE P.Name 
-				LIKE "' . $_GET['publisher'] . '"');
+				LIKE "' . $_GET['publisher'] . '"');  // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct P.Publisher_id)'];
@@ -60,7 +60,7 @@
 				
 				if (!empty($_GET['resultMin'])){	// Existe ?
 					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -72,12 +72,12 @@
 						WHERE P.Name 
 						LIKE "' . $_GET['publisher'] . '"
 						ORDER BY Name  
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // Sélectionne les info du publisher pour pouvoir les afficher.
 				
 					
 		
 		
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
+					while ($data = $response -> fetch()){
 						?>
     					<p>
     					<a href= <?php echo '"detailsPublisher.php?publisher='.($data['Publisher_id']).'"';?>>

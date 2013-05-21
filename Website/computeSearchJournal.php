@@ -47,7 +47,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct J.Name) 
 				FROM Journal J 
 				WHERE J.Name 
-				LIKE "' . $_GET['journal'] . '"');
+				LIKE "' . $_GET['journal'] . '"'); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct J.Name)'];
@@ -73,7 +73,7 @@
 						WHERE Name 
 						LIKE "' . $_GET['journal'] . '"
 						ORDER BY Name  
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // On sélectionne les noms pour pouvoir les afficher.
 				
 					
 		

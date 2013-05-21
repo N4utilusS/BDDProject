@@ -38,7 +38,7 @@
 				
 				if(isset($_POST['publication'])) $_GET['publication'] = $_POST['publication'];
 				
-				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) FROM Publication P	WHERE P.Title LIKE "' . $_GET['publication'].'"');
+				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) FROM Publication P	WHERE P.Title LIKE "' . $_GET['publication'].'"'); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct P.Publication_id)'];
@@ -49,9 +49,9 @@
 				// Vérification ou création de resultMin pour pouvoir bien gérer les liens page précédente et suivante.
 				//------------------------------------------------
 				
-				if (!empty($_GET['resultMin'])){	// Existe ?
-					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+				if (!empty($_GET['resultMin'])){
+					$_GET['resultMin'] = (int) $_GET['resultMin'];	
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -59,9 +59,9 @@
 
 				
 		
-					$response = $bdd->query('SELECT DISTINCT P.Title, P.Year, P.Publication_id FROM Publication P, Book B WHERE P.Title LIKE "' . $_GET['publication'] . '" ORDER BY P.Title LIMIT ' . $_GET['resultMin'] . ', 50');
+					$response = $bdd->query('SELECT DISTINCT P.Title, P.Year, P.Publication_id FROM Publication P WHERE P.Title LIKE "' . $_GET['publication'] . '" ORDER BY P.Title LIMIT ' . $_GET['resultMin'] . ', 50'); // On cherche les détails de la publication pour pouvoir les afficher.
 		
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
+					while ($data = $response -> fetch()){ 
 						?>
     					<p>
     					<a href= <?php echo '"detailsPublication.php?publication='.($data['Publication_id']).'"';?>>

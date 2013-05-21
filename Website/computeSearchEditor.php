@@ -48,7 +48,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct E.Editor_id) 
 				FROM Editor E 
 				WHERE E.Name 
-				LIKE "' . $_GET['editor'] . '"');
+				LIKE "' . $_GET['editor'] . '"'); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct E.Editor_id)'];
@@ -74,7 +74,7 @@
 						WHERE Name 
 						LIKE "' . $_GET['editor'] . '"
 						ORDER BY Name  
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // on sélectionne les noms pour pouvoir les afficher.
 				
 					
 		

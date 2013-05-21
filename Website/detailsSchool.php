@@ -43,7 +43,7 @@
 				
 				if(isset($_POST['school'])) $_GET['school'] = $_POST['school'];
 				
-				$names = $bdd->query('SELECT Name FROM School WHERE School_id='.$_GET['school']);
+				$names = $bdd->query('SELECT Name FROM School WHERE School_id='.$_GET['school']); // On cherche le nom de l'école pour l'afficher.
 				if ($name = $names -> fetch()) { ?> Name of the school : 
 					<strong><?php echo $name['Name']; ?></strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) {?>
 					<a href = <?php echo '"changeSchoolName.php?school='.$_GET['school'].'"';?> title = "changeSchoolName"> Change</a> <?php  } ?></a><br /> <br />
@@ -53,7 +53,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct ST.Publication_id) 
 				FROM School_Thesis ST 
 				WHERE ST.School_id 
-				= "' . $_GET['school'] . '"');
+				= "' . $_GET['school'] . '"'); // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct ST.Publication_id)'];
@@ -79,7 +79,7 @@
 						WHERE P.Publication_id=ST.Publication_id AND ST.School_id
 						= "' . $_GET['school'] . '" 
 						ORDER BY P.Title 
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // on cherche les publications liées à l'école pour les afficher.
 				
 					
 		

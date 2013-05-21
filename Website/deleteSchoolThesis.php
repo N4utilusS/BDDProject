@@ -14,7 +14,6 @@ if(isset($_GET['publication']) AND isset($_GET['school'])){
 			//echo 'Something went wrong...';
 		}$bdd->exec("SET CHARACTER SET utf8");
 		
-		//echo 'DELETE FROM author_publication WHERE Author_id='.$_GET['author'].' AND Publication_id='.$_GET['publication'];
 		
 		$response = $bdd->query('DELETE FROM School_Thesis WHERE School_id='.$_GET['school'].' AND Publication_id='.$_GET['publication']);
 		

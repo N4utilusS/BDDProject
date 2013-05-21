@@ -46,7 +46,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct S.School_id) 
 				FROM School S 
 				WHERE S.Name 
-				LIKE "' . $_GET['school'] . '"');
+				LIKE "' . $_GET['school'] . '"');  // On compte le nombre de résultats de la requète à venir pour pouvoir les afficher par groupes de 50
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct S.School_id)'];
@@ -60,7 +60,7 @@
 				
 				if (!empty($_GET['resultMin'])){	// Existe ?
 					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -72,12 +72,12 @@
 						WHERE S.Name 
 						LIKE "' . $_GET['school'] . '"
 						ORDER BY Name  
-						LIMIT ' . $_GET['resultMin'] . ', 50');
+						LIMIT ' . $_GET['resultMin'] . ', 50'); // Sélectionne les info de l'école pour pouvoir les afficher.
 				
 					
 		
 		
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail
+					while ($data = $response -> fetch()){ 
 						?>
     					<p>
     					<a href= <?php echo '"detailsSchool.php?school='.($data['School_id']).'"';?>>

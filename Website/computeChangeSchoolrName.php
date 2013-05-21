@@ -16,14 +16,14 @@ if(isset($_GET['school']) AND isset($_POST['newName'])){
 		$bdd->exec("SET CHARACTER SET utf8");
 		
 		
-		if (empty($_POST['newName'])){
-			 $delete = $bdd->query('DELETE FROM School_Thesis WHERE School_id='.htmlspecialchars($_GET['school']));
-			 $delete = $bdd->query('DELETE FROM School WHERE School_id='.htmlspecialchars($_GET['school']));
+		if (empty($_POST['newName'])){ // Si le nouveau nom est vide on supprime l'école:
+			 $delete = $bdd->query('DELETE FROM School_Thesis WHERE School_id='.htmlspecialchars($_GET['school'])); // les associations école - thèse
+			 $delete = $bdd->query('DELETE FROM School WHERE School_id='.htmlspecialchars($_GET['school'])); // L'école elle-même
 			 redirection('searchSchool.php');
 			 exit();
 		}
 		else {
-			$changeName = $bdd->query('UPDATE School SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE School_id='.$_GET['school']);
+			$changeName = $bdd->query('UPDATE School SET Name = "'.htmlspecialchars($_POST['newName']).'" WHERE School_id='.$_GET['school']); // Sinon il faut changer le nom de l'école.
 			redirection('detailsSchool.php?school=' . $_GET['school']);
 			exit();
 		}

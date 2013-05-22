@@ -20,10 +20,14 @@
 		<section> <!--Zone centrale-->
 		
 		<?php 
-				if(isset($_GET['message']) AND $_GET['message'] == 'BadEntry'){ ?>
-					<p>Bad entry information ! Please try again :</p>
-			<?php	
-				} ?>
+			if(isset($_GET['message']) AND $_GET['message'] == 'BadEntry'){ ?>
+				<p>Bad entry information ! Please try again :</p>
+		<?php	
+			}
+			else if(isset($_GET['message']) AND $_GET['message'] == 'already'){ ?>
+				<p>User already exists !</p>
+		<?php	}
+		?>
 		
 		<form method = "post" action = "addUser1.php">
 			<p>
@@ -92,13 +96,13 @@
 					
 					
 					//------------------------------------------------
-					// Liens vers les 50 users préc. ou suivants. <-- Faut un s à suivant ?
+					// Liens vers les 50 users préc. ou suivants.
 					//------------------------------------------------
 					
 					if ($_GET['userMin'] > 0){ ?>
 						<a href= <?php echo '"manageUser.php?userMin=' . ($_GET['userMin']-50) . '"';?> >50 users précédents</a>
 					<?php }
-
+					echo $nbreUser-51; echo ' ' . $_GET['userMin'];
 					if ($_GET['userMin'] < $nbreUser-51){ ?>
 						<a href= <?php echo '"manageUser.php?userMin=' . ($_GET['userMin']+50) . '"';?> >50 users suivants</a>
 					<?php }

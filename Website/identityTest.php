@@ -25,7 +25,7 @@
 
 			$_SESSION['email'] = $_POST['email']; // On aurait pu utiliser la donnée email reçues de la requête...
 			$_SESSION['administrator'] = $data['Administrator'];
-			//$_SESSION['User_id'] = $data['User_id'];
+			$_SESSION['User_id'] = $data['User_id'];
 			
 			
 		}

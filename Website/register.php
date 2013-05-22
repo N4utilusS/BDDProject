@@ -10,6 +10,7 @@
 		</header>
 		
 		<section>
+			<?php if (isset($_GET['message']) AND $_GET['message'] = "already") echo 'This user already exists ! <br />'; ?>
 			<p>Please enter your Email address and Password:</p>
 			
 			<form method = "post" action = "addUser.php">

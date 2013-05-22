@@ -9,7 +9,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>About this site. <?php echo $_SESSION['email']; ?></h1>
+			<h1>About this site. <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->

@@ -18,7 +18,7 @@ $book=false;
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Details of the publication,  <?php echo $_SESSION['email']; ?>  </h1>
+			<h1>Details of the publication,  <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?>  </h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -53,24 +53,40 @@ $book=false;
 				$response = $bdd->query('SELECT DISTINCT AN.Name, AN.Author_id FROM Author_Name AN, Author_Publication AP WHERE AP.Publication_id=' . $_GET['publication'].' AND AN.Author_id=AP.Author_id'); // On cherche les auteurs ayant participé à la publication pour pouvoir les afficher.
 				?>
 				<strong>Author Name(s) : </strong>
-				<?php while($data = $response -> fetch()){?>
+				<?php 
 				
-				<?php echo $data['Name']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) { ?>	
-						<a href = <?php echo '"deleteAuthorPublication.php?publication='. $_GET['publication']. '&amp;author='.$data['Author_id'].'"';?> title = "deleteAuthorPublication">Remove this author from the publication</a><br /><?php } ?>
+				if ($data = $response -> fetch()){
+					echo $data['Name'];
+					
+					if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) { ?>	
+							
+						<a href = <?php echo '"deleteAuthorPublication.php?publication='. $_GET['publication']. '&amp;author='.$data['Author_id'].'"';?> title = "deleteAuthorPublication">Remove</a>
+					<?php
+					}
+				}
 				
-				<?php
+				while($data = $response -> fetch()){?>
+				
+					<?php echo ', ' . $data['Name'];
+					
+					if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ) { ?>	
+						
+						<a href = <?php echo '"deleteAuthorPublication.php?publication='. $_GET['publication']. '&amp;author='.$data['Author_id'].'"';?> title = "deleteAuthorPublication">Remove</a>
+					<?php
+					}
+					
 				}
 				
 				
 				 if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"addAuthor.php?publication='. $_GET['publication'].'"';?> title = "addAuthor">Add an author for this publication</a><?php	}
+						<a href = <?php echo '"addAuthor.php?publication='. $_GET['publication'].'"';?> title = "addAuthor">Add an author</a><?php	}
 				
 				
 				//DONNEES GENERALES DE LA PUBLICATION 
 				$response = $bdd->query('SELECT * FROM Publication P WHERE P.Publication_id=' . $_GET['publication']); // On cherche les données de la publication pour pouvoir les afficher.
 				if($data = $response -> fetch()){?> 
 					<br /> <br />
-					<strong><?php echo $data['Title']; ?></strong></a> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+					<em><?php echo $data['Title']; ?></em></a> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
 						<a href = <?php echo '"changeTitle.php?publication='.$_GET['publication'].'"';?> title = "changeTitle"> Change</a> <?php } echo $data['Year']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
 						<a href = <?php echo '"changeYear.php?publication='.$_GET['publication'].'"';?> title = "changeYear"> Change</a><?php } ?><br /> <br />
 					<strong>DBLP Key : </strong><?php echo $data['DBLP_Key'];?> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
@@ -82,7 +98,7 @@ $book=false;
 					<strong>CROSSREF : </strong><?php echo $data['Crossref'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
 						<a href = <?php echo '"changeCrossrefP.php?publication='.$_GET['publication'].'"';?> title = "changeCrossrefP"> Change</a> <?php } ?><br />
 					<strong>NOTE : </strong><?php echo $data['Note'];?><?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeNoteP.php?publication='.$_GET['publication'].'"';?> title = "changeNoteP"> Change</a><?php } ?> <br />
+						<a href = <?php echo '"changeNoteP.php?publication='.$_GET['publication'].'"';?> title = "changeNoteP"> Change</a><?php } ?> <br /> <br />
 				<?php }
 
 				
@@ -107,7 +123,7 @@ $book=false;
 				if($data = $response -> fetch()){?>
 					<strong>JOURNAL : </strong><?php echo $data['Journal_name'];?> <br />
 					<?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"deleteJournalArticle.php?publication='. $_GET['publication'].'&amp;journal='.$data['Journal_name']. '"';?> title = "deleteJournalArticle">Remove this journal from the article</a><?php } ?><br />
+						<a href = <?php echo '"deleteJournalArticle.php?publication='. $_GET['publication'].'&amp;journal='.$data['Journal_name']. '"';?> title = "deleteJournalArticle">Remove this article from the journal</a><?php } ?><br />
 				<?php }
 				else{ if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 AND $article==true ){?>	
 						<a href = <?php echo '"addJournal.php?publication='. $_GET['publication']. '"';?> title = "addJournal">Add a journal for this article</a><br /><?php }}
@@ -188,7 +204,7 @@ $book=false;
 				//COMMENTAIRES SUR LA PUBLICATION
 				$response = $bdd->query('SELECT UP.Comment, UP.Time_stp, U.Email, UP.User_id FROM User_Publication UP, User U WHERE U.User_id=UP.User_id AND UP.Publication_id=' . $_GET['publication'].' ORDER BY UP.Time_stp'); // On va chercher les commentaires et on les affiche par ordre de date.
 				while($data = $response -> fetch()){?>
-					<br />
+					<br /><br />
 					<?php echo $data['Time_stp']; ?> --->
 					<strong><?php echo $data['Email']; ?></strong> said : <br />
 					<?php echo $data['Comment'];?> 

@@ -8,7 +8,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Let's search for an editor <?php echo $_SESSION['email']; ?></h1>
+			<h1>Let's search for an editor <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->

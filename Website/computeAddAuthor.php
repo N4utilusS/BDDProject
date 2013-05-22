@@ -17,7 +17,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Adding the author...  <?php echo $_SESSION['email']; ?></h1>
+			<h1>Adding the author...  <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -74,7 +74,7 @@
 		
 		
 		?>
-		</section>	
+		</section>
 		
 		<nav> <!--Menu-->
 			<?php include ("menu.php"); ?>

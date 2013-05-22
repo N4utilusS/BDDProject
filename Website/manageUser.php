@@ -102,7 +102,7 @@
 					if ($_GET['userMin'] > 0){ ?>
 						<a href= <?php echo '"manageUser.php?userMin=' . ($_GET['userMin']-50) . '"';?> >50 users précédents</a>
 					<?php }
-					echo $nbreUser-51; echo ' ' . $_GET['userMin'];
+					
 					if ($_GET['userMin'] < $nbreUser-51){ ?>
 						<a href= <?php echo '"manageUser.php?userMin=' . ($_GET['userMin']+50) . '"';?> >50 users suivants</a>
 					<?php }
@@ -121,8 +121,8 @@
     					<p>
 
 	    					<?php if ($data['Administrator'] == 1) { echo '<strong>'; } ?>	<!--En évidence si admin-->
-	    						<?php echo $data['Email']; ?>
-	    					<?php if ($data['Administrator'] == 1) { echo '</strong>'; } ?> </br>
+	    						<?php echo '<li>' . $data['Email'] . '</li>'; ?>
+	    					<?php if ($data['Administrator'] == 1) { echo '</strong>'; } ?>
 	    					
     					</p>
 						<?php

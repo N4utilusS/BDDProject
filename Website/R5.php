@@ -88,7 +88,7 @@
 										WHERE ap.Publication_id = ja.Publication_id
 										GROUP BY ap.Author_id, Max
 										HAVING COUNT(distinct ja.Journal_name) >= Max
-										LIMIT ' . $_GET['resultMin'] . ', 50');	// ~20s
+										LIMIT ' . $_GET['resultMin'] . ', 50');	// ~10s
 				
 			//------------------------------------------------
 			// Affichage.

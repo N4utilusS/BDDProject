@@ -10,21 +10,8 @@
 		}
 		$bdd->exec("SET CHARACTER SET utf8");
 		
-		$userExist = $bdd->query('SELECT User_id FROM User WHERE Email = "' . htmlspecialchars($_POST['email']) . '"');
-		
-		if ($userExist->fetch()){
-			$userExist->closeCursor();
-			
-			header('Location: manageUser.php?message=already');
-			exit();
-		}
-		$userExist->closeCursor();
-		
-		$res = hash("sha256", htmlspecialchars($_POST['password']));
-		
-		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?, 0)'); // Crée un nouvel utilisateur.
-		$addUser -> execute(array(	htmlspecialchars($_POST['email']), $res));
-		$addUser -> closeCursor();
+		$addUser = $bdd->prepare('INSERT INTO User (Email, Password, Administrator) VALUES (?,?,0)'); // Crée un nouvel utilisateur.
+		$addUser -> execute(array(htmlspecialchars($_POST['email']), htmlspecialchars($_POST['password'])));
 		
 		header('Location: manageUser.php');
 		exit();

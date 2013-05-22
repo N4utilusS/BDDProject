@@ -44,7 +44,7 @@
 				if(isset($_POST['author'])) $_GET['author'] = $_POST['author'];
 				
 				$information = $bdd->query('SELECT * FROM Author WHERE Author_id='.$_GET['author']);
-				$names = $bdd->query('SELECT Name FROM Author_Name WHERE Author_id='.$_GET['author']);
+				$names = $bdd->query('SELECT Name FROM Author_Name WHERE Author_id='.$_GET['author']); // On recherche les info de l'auteur pour pouvoir les afficher.
 				$data = $information -> fetch();
 				
 				
@@ -63,16 +63,16 @@
 				
 				
     			<p> <!--Informations personnelles et options d'édition pour admin-->
-   		    	Informations personnelles de: <?php while ($name = $names ->fetch()){ ?><strong><br /> <?php echo $name['Name']; ?> </strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?> 	
+   		    	Informations personnelles de: <?php while ($name = $names ->fetch()){ ?><strong> <?php echo $name['Name']; ?> </strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?> 	
 						<a href = <?php echo '"changeAuthorName.php?author='.$_GET['author']. '&amp;name='.$name['Name'].'"';?> title = "changeAuthorName"> Change</a> <?php  } ?></a><?php } ?><br /> <br /> 
-   		        DBLP_www_Key: <?php echo $data['DBLP_www_Key']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeDBLPwwwKey.php?author='.$_GET['author'].'"';?> title = "changeDBLPwwwKey"> Change</a><br /> <?php } ?>
-   		        URL: <?php echo $data['URL']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeURL.php?author='.$_GET['author'].'"';?> title = "changeURL"> Change</a> <br /> <?php } ?>
-   		        Crossref: <?php echo $data['Crossref']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeCrossref.php?author='.$_GET['author'].'"';?> title = "changeCrossref"> Change</a> <br /> <?php } ?>
-   		        Note: <?php echo $data['Note']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeNote.php?author='.$_GET['author'].'"';?> title = "changeNote"> Change</a> <br />  <?php } ?> 				
+   		        <br />DBLP_www_Key: <?php echo $data['DBLP_www_Key']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeDBLPwwwKey.php?author='.$_GET['author'].'"';?> title = "changeDBLPwwwKey"> Change</a> <?php } ?>
+   		        <br />URL: <?php echo $data['URL']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeURL.php?author='.$_GET['author'].'"';?> title = "changeURL"> Change</a>  <?php } ?>
+   		        <br />Crossref: <?php echo $data['Crossref']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeCrossref.php?author='.$_GET['author'].'"';?> title = "changeCrossref"> Change</a>  <?php } ?>
+   		        <br />Note: <?php echo $data['Note']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeNote.php?author='.$_GET['author'].'"';?> title = "changeNote"> Change</a>  <?php } ?> 				
     			</p>
     			
     			Liste des publications auxquelles il a participé:
@@ -82,7 +82,7 @@
 				$response = $bdd->query('SELECT COUNT(distinct P.Publication_id) 
 				FROM Publication P, Author A, Author_Publication AP, Author_Name AN 
 				WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND A.Author_id 
-				= ' . $_GET['author']);
+				= ' . $_GET['author']); // On compte à l'avance le nombre de publications affiliées à cet auteur pour pouvoir en étaler l'affichage sur plusieurs écrans.
 					
 				$entry = $response -> fetch();
 				$entryNumber = (int) $entry['COUNT(distinct P.Publication_id)'];
@@ -94,9 +94,9 @@
 				// Vérification ou création de resultMin pour pouvoir bien gérer les liens page précédente et suivante.
 				//------------------------------------------------
 				
-				if (!empty($_GET['resultMin'])){	// Existe ?
-					$_GET['resultMin'] = (int) $_GET['resultMin'];	// Nombre ?
-					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	// Nombre bissextile ?
+				if (!empty($_GET['resultMin'])){	
+					$_GET['resultMin'] = (int) $_GET['resultMin'];	
+					if ($_GET['resultMin'] < 0 OR $_GET['resultMin'] >= $entryNumber) $_GET['resultMin'] = 0;	
 				}
 				else {
 					$_GET['resultMin'] = 0;	// Créer
@@ -108,7 +108,7 @@
 						WHERE P.Publication_id=AP.Publication_id AND A.Author_id=AP.Author_id AND A.Author_id=AN.Author_id AND A.Author_id 
 						= ' . $_GET['author'] . '
 						ORDER BY P.Title  
-						LIMIT ' . htmlspecialchars($_GET['resultMin']) . ', 50');
+						LIMIT ' . htmlspecialchars($_GET['resultMin']) . ', 50'); //Cherche les publications auxquelles l'auteur à participé pour les afficher.
 				
 					
 		

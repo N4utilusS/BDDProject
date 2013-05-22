@@ -20,14 +20,10 @@
 		<section> <!--Zone centrale-->
 		
 		<?php 
-			if(isset($_GET['message']) AND $_GET['message'] == 'BadEntry'){ ?>
-				<p>Bad entry information ! Please try again :</p>
-		<?php	
-			}
-			else if(isset($_GET['message']) AND $_GET['message'] == 'already'){ ?>
-				<p>User already exists !</p>
-		<?php	}
-		?>
+				if(isset($_GET['message']) AND $_GET['message'] == 'BadEntry'){ ?>
+					<p>Bad entry information ! Please try again :</p>
+			<?php	
+				} ?>
 		
 		<form method = "post" action = "addUser1.php">
 			<p>
@@ -75,7 +71,7 @@
 					// On va chercher le nombre de user pour la suite.
 					//------------------------------------------------
 					
-					$response = $bdd -> query('SELECT COUNT(distinct User_id) FROM User');
+					$response = $bdd -> query('SELECT COUNT(distinct User_id) FROM User'); // Compte à l'avance le nombre d'utilisateur pour pouvoir les afficher par paquets de 50 par écran.
 					$data = $response -> fetch();
 					$nbreUser = (int)$data['COUNT(distinct User_id)'];
 					$response->closeCursor(); // Termine le traitement de la requête.
@@ -96,19 +92,19 @@
 					
 					
 					//------------------------------------------------
-					// Liens vers les 50 users préc. ou suivants.
+					// Liens vers les 50 users préc. ou suivants. <-- Faut un s à suivant ?
 					//------------------------------------------------
 					
 					if ($_GET['userMin'] > 0){ ?>
 						<a href= <?php echo '"manageUser.php?userMin=' . ($_GET['userMin']-50) . '"';?> >50 users précédents</a>
 					<?php }
-					echo $nbreUser-51; echo ' ' . $_GET['userMin'];
+
 					if ($_GET['userMin'] < $nbreUser-51){ ?>
 						<a href= <?php echo '"manageUser.php?userMin=' . ($_GET['userMin']+50) . '"';?> >50 users suivants</a>
 					<?php }
 					
 					
-					$response = $bdd -> query('SELECT U.Email, U.Administrator FROM User U ORDER BY U.Email LIMIT ' . $_GET['userMin'] . ' , 50');
+					$response = $bdd -> query('SELECT U.Email, U.Administrator FROM User U ORDER BY U.Email LIMIT ' . $_GET['userMin'] . ' , 50'); // Informations au sujet des users pour pouvoir les afficher.
 					
 					//------------------------------------------------
 					// Leur affichage.
@@ -116,7 +112,7 @@
 					
 					echo '<strong>User list : </strong><br />';
 
-					while ($data = $response -> fetch()){ // Problème: rendre clickable les résultats affichés pour obtenir un détail -> no pb ^^ but why ?
+					while ($data = $response -> fetch()){ 
 						?>									
     					<p>
 

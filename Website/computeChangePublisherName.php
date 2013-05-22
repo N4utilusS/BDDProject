@@ -17,8 +17,10 @@ if(isset($_GET['publisher']) AND isset($_POST['newName'])){
 		
 		
 		if (empty($_POST['newName'])){ // Si le nom entré est vide, il faut supprimer le publisher
+			 $bdd->beginTransaction();
 			 $delete = $bdd->query('DELETE FROM Publisher_Publication WHERE Publisher_id='.htmlspecialchars($_GET['publisher'])); // On supprime les associations publisher_publication
 			 $delete = $bdd->query('DELETE FROM Publisher WHERE Publisher_id='.htmlspecialchars($_GET['publisher'])); // On supprime le publisher lui-même
+			 $bdd->commit();
 			 redirection('searchPublishor.php');
 			 exit();
 		}

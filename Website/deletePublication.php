@@ -14,6 +14,8 @@ if(isset($_GET['publication'])){
 			//echo 'Something went wrong...';
 		}$bdd->exec("SET CHARACTER SET utf8");
 		
+		
+		$bdd->beginTransaction();
 		//Méthode bête et méchante pour supprimer une publication. Certaines requètes sont inutiles puisqu'elles visent une ligne qui n'existe pas (un article n'est pas un book ni une these).
 		$response = $bdd->query('DELETE FROM Author_Publication WHERE Publication_id='.$_GET['publication']); // On supprime le lien auteur-publication.
 		$response = $bdd->query('DELETE FROM Editor_Article WHERE Publication_id='.$_GET['publication']); // On supprime le lien article-éditeur.
@@ -27,6 +29,8 @@ if(isset($_GET['publication'])){
 		$response = $bdd->query('DELETE FROM Article WHERE Publication_id='.$_GET['publication']); // On supprime l'article.
 		$response = $bdd->query('DELETE FROM Book WHERE Publication_id='.$_GET['publication']); // On supprime le book.
 		$response = $bdd->query('DELETE FROM Publication WHERE Publication_id='.$_GET['publication']); //On supprime la publication.
+		$bdd->commit();
+		
 		
 		
 		redirection('searchPublication.php');

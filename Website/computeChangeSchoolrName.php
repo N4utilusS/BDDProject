@@ -17,8 +17,10 @@ if(isset($_GET['school']) AND isset($_POST['newName'])){
 		
 		
 		if (empty($_POST['newName'])){ // Si le nouveau nom est vide on supprime l'école:
+			 $bdd->beginTransaction();
 			 $delete = $bdd->query('DELETE FROM School_Thesis WHERE School_id='.htmlspecialchars($_GET['school'])); // les associations école - thèse
 			 $delete = $bdd->query('DELETE FROM School WHERE School_id='.htmlspecialchars($_GET['school'])); // L'école elle-même
+			 $bdd->commit();
 			 redirection('searchSchool.php');
 			 exit();
 		}

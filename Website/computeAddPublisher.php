@@ -57,10 +57,12 @@
 		
 				if ($exists==false){ // Si le nom entré ne matche avec rien d'existant, le publisher n'existe pas et il faut le créer.
 					
+					
+					$bdd->beginTransaction();
 					$response = $bdd->query('INSERT INTO Publisher (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())'); // On le crée
-					$response = $bdd->query('SELECT Publisher_id FROM Publisher WHERE Name = "'. $_POST['Name']. '"'); // On va chercher son ID
-					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO Publisher_Publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$data['Publisher_id'].', '.($_GET['publication']).', NOW())'); // Et on le lie à la publication.	 
+					$last_insert_id = $bdd->lastInsertId();
+					$response = $bdd->query('INSERT INTO Publisher_Publication (Publisher_id, Publication_id, Time_stp) VALUES ('.$last_insert_id.', '.($_GET['publication']).', NOW())'); // Et on le lie à la publication.
+					$bdd->commit();	 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

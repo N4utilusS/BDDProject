@@ -17,9 +17,11 @@ if(isset($_GET['editor']) AND isset($_POST['newName'])){
 		
 		
 		if (empty($_POST['newName'])){ // Si le nouveau nom d'éditeur est vide, on supprime l'éditeur.
+			 $bdd->beginTransaction();
 			 $delete = $bdd->query('DELETE FROM Editor_Article WHERE Editor_id='.htmlspecialchars($_GET['editor'])); // On supprime toute trace de son existance.
 			 $delete = $bdd->query('DELETE FROM Editor_Book WHERE Editor_id='.htmlspecialchars($_GET['editor']));
 			 $delete = $bdd->query('DELETE FROM Editor WHERE Editor_id='.htmlspecialchars($_GET['editor'])); // Puis on le supprime en personne.
+			 $bdd->commit();
 			 redirection('searchEditor.php');
 			 exit();
 		}

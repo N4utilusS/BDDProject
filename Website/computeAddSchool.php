@@ -58,10 +58,11 @@
 		
 				if ($exists==false){ // Si aucune école ne matche, l'école entrée n'existe pas et il faut la créer.
 					
+					$bdd->beginTransaction();
 					$response = $bdd->query('INSERT INTO School (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())'); // On la crée.
-					$response = $bdd->query('SELECT School_id FROM School WHERE Name = "'. htmlspecialchars($_POST['Name']). '"'); // On récupère son ID.
-					$data = $response -> fetch();
-					$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$data['School_id'].', '.htmlspecialchars($_GET['publication']).', NOW())'); // Et on se sert de l'ID pour créer un lien entre l'école et la publication.	 
+					$last_insert_id = $bdd->lastInsertId();
+					$response = $bdd->query('INSERT INTO School_Thesis (School_id, Publication_id, Time_stp) VALUES ('.$last_insert_id.', '.htmlspecialchars($_GET['publication']).', NOW())'); // Et on se sert de l'ID pour créer un lien entre l'école et la publication.	 
+				    $bdd->commit();
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

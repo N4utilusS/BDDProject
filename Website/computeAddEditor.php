@@ -59,11 +59,13 @@ $isArticle=false; ?>
 		
 				if ($exists==false){
 					
+					
+					$bdd->beginTransaction();
 					$response = $bdd->query('INSERT INTO Editor (Name, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'", NOW())'); // Si le nom ne matche pas on rajoute un éditeur.
-					$response = $bdd->query('SELECT Editor_id FROM Editor WHERE Name = "'. htmlspecialchars($_POST['Name']). '"'); // On récupère son ID.
-					$data = $response -> fetch();
-					if ($isArticle) $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())'); // Et on s'en sert pour rajouter un lien editeur article si la publication est un article.
-					else $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.$data['Editor_id'].', '.htmlspecialchars($_GET['publication']).', NOW())');	// Ou un lien éditeur livre si la publication est un livre.	 
+					$last_insert_id = $bdd->lastInsertId();
+					if ($isArticle) $response = $bdd->query('INSERT INTO Editor_Article (Editor_id, Publication_id, Time_stp) VALUES ('.$last_insert_id.', '.htmlspecialchars($_GET['publication']).', NOW())'); // Et on s'en sert pour rajouter un lien editeur article si la publication est un article.
+					else $response = $bdd->query('INSERT INTO Editor_Book (Editor_id, Publication_id, Time_stp) VALUES ('.$last_insert_id.', '.htmlspecialchars($_GET['publication']).', NOW())');	// Ou un lien éditeur livre si la publication est un livre.	 
+					$bdd->commit();
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

@@ -23,7 +23,7 @@
 		<section> <!--Zone centrale-->
 		
 		
-		<?php if(!empty($_POST['Name']) AND !empty($_GET['publication']) AND isset($_POST['Year'])){
+		<?php if(!empty($_POST['Name']) AND !empty($_GET['publication']) AND !empty($_POST['Year'])){
 					try{	
 					$bdd = new PDO('mysql:host=localhost;dbname=dblp', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 					}	
@@ -57,8 +57,10 @@
 		
 				if ($exists==false){ // Si le nom ne matche pas, le journal n'existe pas encore et il faut le créer.
 					
+					$bdd->beginTransaction();
 					$response = $bdd->query('INSERT INTO Journal (Name, Year, Time_stp) VALUES ("' .htmlspecialchars($_POST['Name']).'",'.htmlspecialchars($_POST['Year']).', NOW())'); // On crée le journal.
-					$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_POST['Name']).'", '.($_GET['publication']).', NOW())');	// Et on l'associe à l'article. 
+					$response = $bdd->query('INSERT INTO Journal_Article (Journal_name, Publication_id, Time_stp) VALUES ("'.htmlspecialchars($_POST['Name']).'", '.($_GET['publication']).', NOW())');	// Et on l'associe à l'article.
+					$bdd->commit(); 
 				    redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

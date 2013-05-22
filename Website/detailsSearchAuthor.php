@@ -63,16 +63,16 @@
 				
 				
     			<p> <!--Informations personnelles et options d'édition pour admin-->
-   		    	Informations personnelles de: <?php while ($name = $names ->fetch()){ ?><strong><br /> <?php echo $name['Name']; ?> </strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?> 	
+   		    	Informations personnelles de: <?php while ($name = $names ->fetch()){ ?><strong> <?php echo $name['Name']; ?> </strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?> 	
 						<a href = <?php echo '"changeAuthorName.php?author='.$_GET['author']. '&amp;name='.$name['Name'].'"';?> title = "changeAuthorName"> Change</a> <?php  } ?></a><?php } ?><br /> <br /> 
-   		        DBLP_www_Key: <?php echo $data['DBLP_www_Key']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeDBLPwwwKey.php?author='.$_GET['author'].'"';?> title = "changeDBLPwwwKey"> Change</a><br /> <?php } ?>
-   		        URL: <?php echo $data['URL']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeURL.php?author='.$_GET['author'].'"';?> title = "changeURL"> Change</a> <br /> <?php } ?>
-   		        Crossref: <?php echo $data['Crossref']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeCrossref.php?author='.$_GET['author'].'"';?> title = "changeCrossref"> Change</a> <br /> <?php } ?>
-   		        Note: <?php echo $data['Note']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
-						<a href = <?php echo '"changeNote.php?author='.$_GET['author'].'"';?> title = "changeNote"> Change</a> <br />  <?php } ?> 				
+   		        <br /> DBLP_www_Key: <?php echo $data['DBLP_www_Key']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeDBLPwwwKey.php?author='.$_GET['author'].'"';?> title = "changeDBLPwwwKey"> Change</a> <?php } ?>
+   		        <br />URL: <?php echo $data['URL']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeURL.php?author='.$_GET['author'].'"';?> title = "changeURL"> Change</a>  <?php } ?>
+   		        <br />Crossref: <?php echo $data['Crossref']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeCrossref.php?author='.$_GET['author'].'"';?> title = "changeCrossref"> Change</a>  <?php } ?>
+   		        <br />Note: <?php echo $data['Note']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
+						<a href = <?php echo '"changeNote.php?author='.$_GET['author'].'"';?> title = "changeNote"> Change</a>   <?php } ?> 				
     			</p>
     			
     			Liste des publications auxquelles il a participé:

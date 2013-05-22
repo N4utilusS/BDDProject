@@ -139,7 +139,7 @@ d’auteurs moyen par article depuis leur année de création et ce pour tous le
 					<a href= <?php echo '"R6.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
 				<?php }
 				
-				if ($_GET['resultMin'] < $_SESSION['R6Number']-51 AND $_SESSION['R6Number']-51 > 0){ ?>
+				if ($_GET['resultMin'] < $_SESSION['R6Number']-51){ ?>
 					<a href= <?php echo '"R6.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
 			<?php }
 			?>

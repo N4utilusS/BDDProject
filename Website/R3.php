@@ -104,7 +104,7 @@
 					<a href= <?php echo '"R3.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
 				<?php }
 				
-				if ($_GET['resultMin'] < $_SESSION['R3Number']-51 AND $_SESSION['R3Number']-51 > 0){ ?>
+				if ($_GET['resultMin'] < $_SESSION['R3Number']-51){ ?>
 					<a href= <?php echo '"R3.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
 			<?php }
 			?>

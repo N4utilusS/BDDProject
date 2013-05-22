@@ -14,7 +14,9 @@
 		</header>
 		
 		<section> <!--Zone centrale-->
-			Les ID des auteurs qui ont écrit au moins deux articles pendant la même année.
+			Les articles qui n’ont aucun docteur parmi leurs auteurs, <br />
+			où un docteur est défini comme un auteur pour lequel <br />
+			la base de données contient une thèse de doctorat dont il est le seul auteur.
 			<?php
 			
 			//------------------------------------------------

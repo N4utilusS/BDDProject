@@ -14,7 +14,7 @@
 		</header>
 		
 		<section> <!--Zone centrale-->
-			Les ID des auteurs qui ont écrit au moins deux articles pendant la même année.
+			Les auteurs ayant publié dans le plus de journaux différents.
 			<?php
 			
 			//------------------------------------------------
@@ -49,7 +49,7 @@
 													) MaxOfAllAuthor
 												WHERE ap.Publication_id = ja.Publication_id
 												GROUP BY ap.Author_id, Max
-												HAVING COUNT(distinct ja.Journal_name) >= Max
+												HAVING COUNT(distinct ja.Journal_name) = Max
 												) req');	// ~20s
 					$entry = $response->fetch();
 					
@@ -87,7 +87,7 @@
 											) MaxOfAllAuthor
 										WHERE ap.Publication_id = ja.Publication_id
 										GROUP BY ap.Author_id, Max
-										HAVING COUNT(distinct ja.Journal_name) >= Max
+										HAVING COUNT(distinct ja.Journal_name) = Max
 										LIMIT ' . $_GET['resultMin'] . ', 50');	// ~20s
 				
 			//------------------------------------------------
@@ -101,9 +101,7 @@
 					</p>
 				<?php
 				}
-				echo '<pre>';
-				print_r($_SESSION);
-				echo '</pre>';
+				
 				
 				$response->closeCursor();
 				
@@ -111,7 +109,7 @@
 					<a href= <?php echo '"R5.php?resultMin=' . ($_GET['resultMin']-50) . '"';?> >50 entrées précédentes</a>
 				<?php }
 				
-				if ($_GET['resultMin'] < $_SESSION['R5Number']-51 AND $_SESSION['R5Number']-51 > 0){ ?>
+				if ($_GET['resultMin'] < $_SESSION['R5Number']-51){ ?>
 					<a href= <?php echo '"R5.php?resultMin=' . ($_GET['resultMin']+50) . '"';?> >50 entrées suivantes</a>
 			<?php }
 			?>

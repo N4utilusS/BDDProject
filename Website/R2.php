@@ -89,7 +89,7 @@
 				while($data = $response->fetch()){ ?>
 					<p>
 					<a href= <?php echo '"detailsSearchAuthor.php?author=' . $data['Author_id'] . '"';?> >
-	    			<strong> <?php echo $data['Author_id']; ?> </strong> </a> <br /> 				
+	    			<strong> <?php echo $data['Author_id']; ?></strong> </a> <br /> 				
 					</p>
 				<?php
 				}

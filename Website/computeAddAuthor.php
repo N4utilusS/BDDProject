@@ -17,7 +17,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>Adding the author...  <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
+			<h1>Adding the author...  <?php echo $_SESSION['email']; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -57,17 +57,13 @@
 		
 				if ($exists==false){ // Si aucun nom ne match, c'est un nouvel auteur
 					
-					
-					$bdd->beginTransaction();
 					$response = $bdd->query('INSERT INTO Author (DBLP_www_Key, URL, CROSSREF, Note, Time_stp) VALUES ("' .  htmlspecialchars($_POST['DBLP_Key']) . '", "' . htmlspecialchars($_POST['URL']) . '", "' . 
 					htmlspecialchars($_POST['Crossref']) . '", "'. htmlspecialchars($_POST['Note']).'", NOW())'); // On crée une entrée dans la table auteur.
-					//$response = $bdd->query('SELECT Author_id FROM Author WHERE Note = "'. $_POST['Note']. '" AND DBLP_www_Key="'.  htmlspecialchars($_POST['DBLP_Key']) . '" AND URL ="'.htmlspecialchars($_POST['URL']) . '" AND Crossref ="'.htmlspecialchars($_POST['Crossref']) . '"');// On va récupérer l'ID de l'auteur juste créé.
-					//$data = $response -> fetch(); 
-					$last_insert_id = $bdd->lastInsertId();
-					$response = $bdd->query('INSERT INTO Author_Name (Author_id, Name, Time_stp) VALUES ('.$last_insert_id.', "'.htmlspecialchars($_POST['Name']).'", NOW())'); // Et on s'en sert pour lui associer un nom
-				    $response = $bdd->query('INSERT INTO Author_Publication (Author_id, Publication_id, Time_stp) VALUES ('.$last_insert_id.', '.$_GET['publication'].', NOW())'); // et une publication.
-					$bdd->commit();
-					
+					$response = $bdd->query('SELECT Author_id FROM Author WHERE Note = "'. $_POST['Note']. '" AND DBLP_www_Key="'.  htmlspecialchars($_POST['DBLP_Key']) . '" AND URL ="'.htmlspecialchars($_POST['URL']) . '" AND Crossref ="'.htmlspecialchars($_POST['Crossref']) . '"');// On va récupérer l'ID de l'auteur juste créé.
+					$data = $response -> fetch(); 
+					$response = $bdd->query('INSERT INTO Author_Name (Author_id, Name, Time_stp) VALUES ('.$data['Author_id'].', "'.htmlspecialchars($_POST['Name']).'", NOW())'); // Et on s'en sert pour lui associer un nom
+				    $response = $bdd->query('INSERT INTO Author_Publication (Author_id, Publication_id, Time_stp) VALUES ('.$data['Author_id'].', '.$_GET['publication'].', NOW())'); // et une publication.
+				
 					redirection('detailsPublication.php?publication=' . $_GET['publication']);
 
 					exit();

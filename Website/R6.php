@@ -10,7 +10,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>R1 <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
+			<h1>R6 <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -39,32 +39,32 @@ d’auteurs moyen par article depuis leur année de création et ce pour tous le
 					$response = $bdd->query('SELECT COUNT(*)
 											FROM (
 												SELECT KeptJournal, 
-														COUNT(ja3.Publication_id) AS NumberArticle, -- Nbre article depuis 2008.
-														COUNT(ja3.Publication_id)/4 AS AvgArticlePerYear, -- Nbre article moyen par an.
-														(	SELECT COUNT(ap.Author_id)/COUNT(distinct ap.Publication_id) -- Shit got serious.
+														COUNT(distinct ja3.Publication_id) AS NumberArticle, -- Nbre article depuis 2008.
+														COUNT(distinct ja3.Publication_id)/COUNT(distinct j3.Year) AS AvgArticlePerYear, -- Nbre article moyen par an.
+														(	SELECT COUNT(ap.Author_id)/COUNT(distinct ap.Publication_id) -- Nbre auteurs moyen par article.
 															FROM Journal_Article ja4, Author_Publication ap
 															WHERE ja4.Journal_name = KeptJournal AND ja4.Publication_id = ap.Publication_id
 														) AS AvgAuthorPerArticle -- Moyenne nbre auteur par article pour un journal gardé.
-												FROM Journal_Article ja3,	(
+												FROM Journal_Article ja3, Journal j3,	(
 												
-													SELECT ja2.Journal_name AS KeptJournal-- On a les journaux en question.
-													FROM Article ar2, Journal_Article ja2,	(
+													SELECT ja2.Journal_name AS KeptJournal	-- On a les journaux en question.
+													FROM Article ar2, Journal_Article ja2, Journal j2,	(
 													
 														SELECT AVG(VolCount) AS Average -- Une ligne contenant juste la moyenne du nbre de volume des journaux.
 														FROM	(
-															SELECT COUNT(distinct ar.Volume) AS VolCount -- Ensemble des nbre de volume par journal.
-															FROM Article ar, Journal_Article ja
-															WHERE ar.Publication_id = ja.Publication_id
+															SELECT COUNT(distinct ar.Volume)/COUNT(distinct j.Year)*4 AS VolCount -- Ensemble des nbre de volume par journal.
+															FROM Article ar, Journal_Article ja, Journal j	-- COUNT / (nbre Year ≠) * 4 pour ne pas fausser moyenne avec année manquante
+															WHERE ar.Publication_id = ja.Publication_id AND j.Name = ja.Journal_name
 															GROUP BY ja.Journal_name
 																) Volume_Amount_For_Each_Journal
-																							) av
+																										) av
 												
-													WHERE ja2.Publication_id = ar2.Publication_id
+													WHERE ja2.Publication_id = ar2.Publication_id AND j2.Name = ja2.Journal_name
 													GROUP BY ja2.Journal_name, Average
-													HAVING COUNT(distinct ar2.Volume) > Average -- Nbre volumes distints > moyenne.
-																			) Journals
+													HAVING COUNT(distinct ar2.Volume)/COUNT(distinct j2.Year)*4 > Average -- Nbre volumes distints > moyenne.
+																						) Journals
 												
-												WHERE ja3.Journal_name = KeptJournal
+												WHERE ja3.Journal_name = KeptJournal AND j3.Name = KeptJournal
 												GROUP BY KeptJournal
 												) req');	// ~8s
 					$entry = $response->fetch();
@@ -92,32 +92,32 @@ d’auteurs moyen par article depuis leur année de création et ce pour tous le
 			//------------------------------------------------
 				
 				$response = $bdd->query('SELECT KeptJournal, 
-												COUNT(ja3.Publication_id) AS NumberArticle, -- Nbre article depuis 2008.
-												COUNT(ja3.Publication_id)/4 AS AvgArticlePerYear, -- Nbre article moyen par an.
-												(	SELECT COUNT(ap.Author_id)/COUNT(distinct ap.Publication_id) -- Shit got serious.
+												COUNT(distinct ja3.Publication_id) AS NumberArticle, -- Nbre article depuis 2008.
+												COUNT(distinct ja3.Publication_id)/COUNT(distinct j3.Year) AS AvgArticlePerYear, -- Nbre article moyen par an.
+												(	SELECT COUNT(ap.Author_id)/COUNT(distinct ap.Publication_id) -- Nbre auteurs moyen par article.
 													FROM Journal_Article ja4, Author_Publication ap
 													WHERE ja4.Journal_name = KeptJournal AND ja4.Publication_id = ap.Publication_id
 												) AS AvgAuthorPerArticle -- Moyenne nbre auteur par article pour un journal gardé.
-										FROM Journal_Article ja3,	(
+										FROM Journal_Article ja3, Journal j3,	(
 										
-											SELECT ja2.Journal_name AS KeptJournal-- On a les journaux en question.
-											FROM Article ar2, Journal_Article ja2,	(
+											SELECT ja2.Journal_name AS KeptJournal	-- On a les journaux en question.
+											FROM Article ar2, Journal_Article ja2, Journal j2,	(
 											
 												SELECT AVG(VolCount) AS Average -- Une ligne contenant juste la moyenne du nbre de volume des journaux.
 												FROM	(
-													SELECT COUNT(distinct ar.Volume) AS VolCount -- Ensemble des nbre de volume par journal.
-													FROM Article ar, Journal_Article ja
-													WHERE ar.Publication_id = ja.Publication_id
+													SELECT COUNT(distinct ar.Volume)/COUNT(distinct j.Year)*4 AS VolCount -- Ensemble des nbre de volume par journal.
+													FROM Article ar, Journal_Article ja, Journal j	-- COUNT / (nbre Year ≠) * 4 pour ne pas fausser moyenne avec année manquante
+													WHERE ar.Publication_id = ja.Publication_id AND j.Name = ja.Journal_name
 													GROUP BY ja.Journal_name
 														) Volume_Amount_For_Each_Journal
-																					) av
+																								) av
 										
-											WHERE ja2.Publication_id = ar2.Publication_id
+											WHERE ja2.Publication_id = ar2.Publication_id AND j2.Name = ja2.Journal_name
 											GROUP BY ja2.Journal_name, Average
-											HAVING COUNT(distinct ar2.Volume) > Average -- Nbre volumes distints > moyenne.
-																	) Journals
+											HAVING COUNT(distinct ar2.Volume)/COUNT(distinct j2.Year)*4 > Average -- Nbre volumes distints > moyenne.
+																				) Journals
 										
-										WHERE ja3.Journal_name = KeptJournal
+										WHERE ja3.Journal_name = KeptJournal AND j3.Name = KeptJournal
 										GROUP BY KeptJournal
 										LIMIT ' . $_GET['resultMin'] . ', 50');
 				

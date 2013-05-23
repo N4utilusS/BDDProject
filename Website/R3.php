@@ -10,7 +10,7 @@
 	<body>
 	
 		<header> <!--En-tête-->
-			<h1>R1 <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
+			<h1>R3 <?php if (isset($_SESSION['email'])) echo $_SESSION['email']; else echo 'Visitor'; ?></h1>
 		</header>
 		
 		<section> <!--Zone centrale-->
@@ -39,7 +39,7 @@
 					$response = $bdd->query('SELECT COUNT(*)
 											FROM (
 												SELECT distinct ap4.Author_id
-												FROM Author_Publication ap1, Author_Publication ap2, Author_Publication ap3, Author_Publication ap4
+												FROM Author_Publication ap1, Author_Publication ap2, Author_Publication ap3, Author_Publication ap4, Article ar, Article ar2
 												WHERE ap1.Author_id = ' . $_SESSION['R3Author'] . '
 													AND ap1.Publication_id = ap2.Publication_id
 													AND ap3.Publication_id = ap4.Publication_id
@@ -48,6 +48,8 @@
 													AND ap3.Author_id != ap4.Author_id
 													AND ap1.Author_id != ap4.Author_id
 													AND ap2.Author_id = ap3.Author_id
+													AND ar.Publication_id = ap1.Publication_id
+													AND ar2.Publication_id = ap3.Publication_id
 												) req');
 					$entry = $response->fetch();
 					
@@ -75,7 +77,7 @@
 			//------------------------------------------------
 				
 				$response = $bdd->query('SELECT distinct ap4.Author_id
-										FROM Author_Publication ap1, Author_Publication ap2, Author_Publication ap3, Author_Publication ap4
+										FROM Author_Publication ap1, Author_Publication ap2, Author_Publication ap3, Author_Publication ap4, Article ar, Article ar2
 										WHERE ap1.Author_id = ' . $_SESSION['R3Author'] . '-- Insert Author_id here.
 											AND ap1.Publication_id = ap2.Publication_id
 											AND ap3.Publication_id = ap4.Publication_id
@@ -84,6 +86,8 @@
 											AND ap3.Author_id != ap4.Author_id
 											AND ap1.Author_id != ap4.Author_id
 											AND ap2.Author_id = ap3.Author_id
+											AND ar.Publication_id = ap1.Publication_id
+											AND ar2.Publication_id = ap3.Publication_id
 										LIMIT ' . $_GET['resultMin'] . ', 50');
 				
 			//------------------------------------------------

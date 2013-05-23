@@ -14,7 +14,7 @@
 		
 		<section> <!--Zone centrale-->
 			<p>Là on vous aide</p>
-			<iframe width="960" height="720" src="http://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" frameborder="0" allowfullscreen></iframe>		
+			<iframe width="960" height="720" src="http://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;autoplay=1" frameborder="0" allowfullscreen></iframe>		
 		</section>	
 		
 		<nav> <!--Menu-->

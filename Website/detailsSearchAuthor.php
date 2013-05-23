@@ -63,8 +63,8 @@
 				
 				
     			<p> <!--Informations personnelles et options d'édition pour admin-->
-   		    	Informations personnelles de: <?php while ($name = $names ->fetch()){ ?><strong> <?php echo $name['Name']; ?> </strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?> 	
-						<a href = <?php echo '"changeAuthorName.php?author='.$_GET['author']. '&amp;name='.$name['Name'].'"';?> title = "changeAuthorName"> Change</a> <?php  } ?></a><?php } ?><br /> <br /> 
+   		    	Informations personnelles de <?php while ($name = $names ->fetch()){ ?><strong>: <?php echo $name['Name']; ?> </strong> <?php if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?> 	
+						<a href = <?php echo '"changeAuthorName.php?author='.$_GET['author']. '&amp;name='.$name['Name'].'"';?> title = "changeAuthorName"> Change</a> <?php  } } ?><br /> <br /> 
    		        <br /> DBLP_www_Key: <?php echo $data['DBLP_www_Key']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	
 						<a href = <?php echo '"changeDBLPwwwKey.php?author='.$_GET['author'].'"';?> title = "changeDBLPwwwKey"> Change</a> <?php } ?>
    		        <br />URL: <?php echo $data['URL']; if (isset($_SESSION['administrator']) AND $_SESSION['administrator'] == 1 ){ ?>	

@@ -14,7 +14,7 @@
 		
 		<section> <!--Zone centrale-->
 			<p>Là on explique des trucs</p>
-			<iframe width="960" height="720" src="http://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" frameborder="0" allowfullscreen></iframe>
+			<iframe width="1280" height="720" src="http://www.youtube.com/embed/z9Uz1icjwrM?rel=0amp;autoplay=1" frameborder="0" allowfullscreen></iframe>
 		</section>	
 		
 		<nav> <!--Menu-->
